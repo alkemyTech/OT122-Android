@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">El email no no puede estar vacio</string>
+
+    <!-- Facebook -->
+    <string name="facebook_auth_error">La autenticación ha fallado.</string>
+
+    <!-- Menu -->
+    <string name="menu_item_contact_us">Contacto</string>
+
+    <!-- Error -->
+    <string name="error_tv_message">Ha ocurrido un error obteniendo la información.</string>
+    <string name="error_bt_retry">Reintentar</string>
+    <string name="error_dialog">Cerrar</string>
+    <string name="error_general_tv_message">Ha ocurrido un error general. Por favor, reintenta más tarde.</string>
+
+    <!-- Contactate con nosotros -->
+    <string name="contact_us_tv_title">Contactate con nosotros</string>
+    <string name="contact_us_et_name">Nombre</string>
+    <string name="contact_us_et_surname">Apellido</string>
+    <string name="contact_us_bt_send">ENVIAR</string>
+    <string name="contact_us_et_query">Escribe tu consulta…</string>
+    <string name="contact_us_et_email">Email</string>
+    <string name="contact_us_et_email_error">Ingrese un email válido</string>
+    <string name="contact_us_toast_success">Mensaje enviado</string>
+    <string name="contact_us_dialog_error_title">Lo sentimos</string>
+    <string name="contact_us_dialog_error_description">Ha ocurrido un error. Intente nuevamente más tarde.</string>
+    <string name="contact_us_invalid_email">Ingrese un email válido.</string>
+
+    <!-- Home -->
+    <string name="home_tv_title">Bienvenid@</string>
+    <string name="home_tv_title_news">Últimas novedades</string>
+    <string name="home_tv_title_testimonial">Testimonios</string>
+
+</resources>

@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">ONGSomosMas</string>
+
+    <!-- Facebook -->
+    <string name="facebook_app_id" translatable="false">951361852132947</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb951361852132947</string>
+    <string name="facebook_auth_error">Authentication failed.</string>
+
+    <!-- Menu -->
+    <string name="menu_item_contact_us">Contact</string>
+
+    <!-- Error -->
+    <string name="error_tv_message">An error has occurred obtaining the information.</string>
+    <string name="error_bt_retry">Retry</string>
+    <string name="error_dialog">Close</string>
+    <string name="error_general_tv_message">A general error has occurred. Please try again later.</string>
+
+    <!-- Contact Us -->
+    <string name="contact_us_tv_title">Contact us</string>
+    <string name="contact_us_et_name">Name</string>
+    <string name="contact_us_et_surname">Last name</string>
+    <string name="contact_us_bt_send">SEND</string>
+    <string name="contact_us_et_query">Write your inquiries…</string>
+    <string name="contact_us_et_email">Email</string>
+    <string name="contact_us_et_email_error">Enter a valid email</string>
+    <string name="contact_us_toast_success">Message sent</string>
+    <string name="contact_us_dialog_error_title">We are sorry</string>
+    <string name="contact_us_dialog_error_description">An error has occurred. Please try again later.</string>
+    <string name="contact_us_invalid_email">Enter a valid email</string>
+
+    <!-- Home -->
+    <string name="home_tv_title">Welcome</string>
+    <string name="home_tv_title_news">News</string>
+    <string name="home_tv_title_testimonial">Testimonial</string>
+</resources>
