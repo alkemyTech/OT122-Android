@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ONGSomosMas"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".ui.signup.SignUpActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.splash.SplashScreenActivity"
             android:exported="true"
@@ -32,28 +34,20 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true"
-            android:label="@string/app_name" />
-
-
-        <!-- Custom imagen for Firebase Notification -->
+            android:label="@string/app_name" /> <!-- Custom imagen for Firebase Notification -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/logo_somos_mas" />
-        <!-- Custom color for Firebase Notification -->
+            android:resource="@drawable/logo_somos_mas" /> <!-- Custom color for Firebase Notification -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/light_blue" />
-
-        <!-- Firebase Messaging Service-->
+            android:resource="@color/light_blue" /> <!-- Firebase Messaging Service -->
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-
-        <!-- Facebook Login-->
+        </service> <!-- Facebook Login -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -74,7 +68,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
