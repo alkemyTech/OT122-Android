@@ -4,23 +4,30 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.ViewModel
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.databinding.ActivityLoginBinding
 import com.alkemy.ongsomosmas.ui.home.HomeActivity
 import com.alkemy.ongsomosmas.utils.EventConstants
+import com.alkemy.ongsomosmas.utils.afterTextChanged
 import com.alkemy.ongsomosmas.utils.sendLog
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.regex.Pattern
 
 
 @AndroidEntryPoint
@@ -29,15 +36,25 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val callbackManager = CallbackManager.Factory.create()
     private lateinit var auth: FirebaseAuth
+    val model: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = Firebase.auth
-        binding.btnLogin.isEnabled = false
 
-        setTextEvents()
+        with(binding){
+            btnLogin.isEnabled = false
+            tvEmail.afterTextChanged {
+                btnLogin.isEnabled = model
+                    .validEmailPassword("tvEmail.text","tvPassword.text...")
+            }
+            tvPassword.afterTextChanged {
+                btnLogin.isEnabled = model
+                    .validEmailPassword("tvEmail.text","tvPassword.text...")
+            }
+        }
 
         // facebook login setup
         binding.ibFacebook.setOnClickListener {
@@ -113,44 +130,5 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun setTextEvents() {
-        binding.tvEmail.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                setValidEmailPassword()
-            }
 
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-        binding.tvPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                setValidEmailPassword()
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-    }
-
-    private fun setValidEmailPassword() {
-        var btnState = true
-        var email: String?
-        var password: String?
-        var reg = "\\w+"
-
-        try {
-
-            email = binding.tvEmail.text.toString()
-            password = binding.tvPassword.text.toString()
-
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) btnState = false
-            if(!Pattern.matches(reg, password)) btnState = false
-
-            binding.btnLogin.isEnabled = btnState
-
-        }catch (e: Exception) {
-            println(e.message)
-        }
-    }
 }
