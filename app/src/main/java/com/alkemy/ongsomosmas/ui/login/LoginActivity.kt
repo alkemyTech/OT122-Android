@@ -35,6 +35,9 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = Firebase.auth
+        binding.btnLogin.isEnabled = false
+
+        setTextEvents()
 
         // facebook login setup
         binding.ibFacebook.setOnClickListener {
@@ -46,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, HomeActivity::class.java))
             finish()
         }
+
     }
 
     public override fun onStart() {
@@ -107,5 +111,46 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                 }
             }
+    }
+
+    private fun setTextEvents() {
+        binding.tvEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                setValidEmailPassword()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.tvPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                setValidEmailPassword()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun setValidEmailPassword() {
+        var btnState = true
+        var email: String?
+        var password: String?
+        var reg = "\\w+"
+
+        try {
+
+            email = binding.tvEmail.text.toString()
+            password = binding.tvPassword.text.toString()
+
+            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) btnState = false
+            if(!Pattern.matches(reg, password)) btnState = false
+
+            binding.btnLogin.isEnabled = btnState
+
+        }catch (e: Exception) {
+            println(e.message)
+        }
     }
 }
