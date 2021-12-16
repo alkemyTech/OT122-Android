@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.databinding.ActivityLoginBinding
 import com.alkemy.ongsomosmas.ui.home.HomeActivity
+import com.alkemy.ongsomosmas.ui.signup.SignUpActivity
 import com.alkemy.ongsomosmas.utils.EventConstants
 import com.alkemy.ongsomosmas.utils.sendLog
 import com.facebook.AccessToken
