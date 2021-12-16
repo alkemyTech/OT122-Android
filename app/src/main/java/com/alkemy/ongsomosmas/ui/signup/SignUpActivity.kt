@@ -25,12 +25,19 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setup() {
         //Button enabled
-        binding.btnSinUp.isEnabled = false
+        binding.btnRegister.isEnabled = false
 
-        //Listener call to the API
-        binding.btnSinUp.setOnClickListener {
-            Toast.makeText(this, "Calling the API", Toast.LENGTH_SHORT).show()
+        //Listeners
+        with(binding) {
+            btnRegister.setOnClickListener {
+                Toast.makeText(this@SignUpActivity, "Calling the API", Toast.LENGTH_SHORT).show()
+            }
+
+            cbTermsAndCondition.setOnClickListener {
+
+            }
         }
+
 
         // Validate data
         checkValue()
@@ -40,22 +47,27 @@ class SignUpActivity : AppCompatActivity() {
             val signUpFormState = it ?: return@Observer
 
             with(binding) {
-                btnSinUp.isEnabled = signUpFormState.isDataValid
-                etName.error = signUpFormState.nameError?.let(::getString)
+                // Button enabled
+                cbTermsAndCondition.isEnabled = signUpFormState.isDataValid
+                cbTermsAndCondition.setOnClickListener{
+                    btnRegister.isEnabled =
+                        signUpFormState.isDataValid && cbTermsAndCondition.isChecked
+                }
+                btnRegister.isEnabled = signUpFormState.isDataValid && cbTermsAndCondition.isChecked
+                etFirstName.error = signUpFormState.nameError?.let(::getString)
                 etEmail.error = signUpFormState.emailError?.let(::getString)
                 etPassword.error = signUpFormState.passwordError?.let(::getString)
                 etConfirmPassword.error = signUpFormState.samePasswordError?.let(::getString)
+//                btnRegister.isEnabled = signUpFormState.isChecked
             }
         })
-
-
     }
 
     private fun checkValue() {
         with(binding) {
-            etName.afterTextChanged {
+            etFirstName.afterTextChanged {
                 signUpViewModel.onDataChanged(
-                    etName.text.toString(),
+                    etFirstName.text.toString(),
                     etEmail.text.toString(),
                     etPassword.text.toString(),
                     etConfirmPassword.text.toString()
@@ -64,7 +76,7 @@ class SignUpActivity : AppCompatActivity() {
 
             etEmail.afterTextChanged {
                 signUpViewModel.onDataChanged(
-                    etName.text.toString(),
+                    etFirstName.text.toString(),
                     etEmail.text.toString(),
                     etPassword.text.toString(),
                     etConfirmPassword.text.toString()
@@ -73,7 +85,7 @@ class SignUpActivity : AppCompatActivity() {
 
             etPassword.afterTextChanged {
                 signUpViewModel.onDataChanged(
-                    etName.text.toString(),
+                    etFirstName.text.toString(),
                     etEmail.text.toString(),
                     etPassword.text.toString(),
                     etConfirmPassword.text.toString()
@@ -82,7 +94,7 @@ class SignUpActivity : AppCompatActivity() {
 
             etConfirmPassword.afterTextChanged {
                 signUpViewModel.onDataChanged(
-                    etName.text.toString(),
+                    etFirstName.text.toString(),
                     etEmail.text.toString(),
                     etPassword.text.toString(),
                     etConfirmPassword.text.toString()

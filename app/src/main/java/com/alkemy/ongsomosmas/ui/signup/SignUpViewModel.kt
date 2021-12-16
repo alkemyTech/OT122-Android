@@ -11,7 +11,10 @@ import java.util.regex.Pattern
 class SignUpViewModel @ViewModelInject constructor() : ViewModel() {
 
     private val _signUpFormState = MutableLiveData<SignUpFormState>()
-    val signUpFormState:LiveData<SignUpFormState> = _signUpFormState
+    val signUpFormState: LiveData<SignUpFormState> = _signUpFormState
+
+    private val _termsAndCondition = MutableLiveData<Boolean>()
+    val termsAndConditions = _termsAndCondition
 
     // Validate Data
     fun onDataChanged(
@@ -20,7 +23,7 @@ class SignUpViewModel @ViewModelInject constructor() : ViewModel() {
         password: String,
         confirmPassword: String
     ) {
-       if (!isNameValid(name)) {
+        if (!isNameValid(name)) {
             _signUpFormState.value = SignUpFormState(nameError = R.string.name_text)
         } else if (!isEmailValid(email)) {
             _signUpFormState.value = SignUpFormState(emailError = R.string.email_text)
