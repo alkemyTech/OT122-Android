@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">El email no no puede estar vacio</string>
+    <string name="app_name">ONGSomosMas</string>
 
     <!-- Facebook -->
     <string name="facebook_auth_error">La autenticación ha fallado.</string>
@@ -32,4 +32,15 @@
     <string name="home_tv_title_news">Últimas novedades</string>
     <string name="home_tv_title_testimonial">Testimonios</string>
 
+    <!-- SignUp -->
+    <string name="sign_up_name">Nombre</string>
+    <string name="sign_up_last_name">Apellido</string>
+    <string name="sign_up_email">Correo electrónico</string>
+    <string name="sign_up_password">Contraseña</string>
+    <string name="sign_up_confirm_password">Repetir contraseña</string>
+    <string name="sign_up_agree_to_the_terms_and_condition">Acepto términos y condiciones</string>
+    <string name="sign_up_upper_case">REGISTRAR</string>
+    <string name="sign_up_lower_case">Registro</string>
+    <string name="sign_up_already_have_an_account">¿Ya tienes una cuenta?</string>
+    <string name="sign_up_login">Ingresar</string>
 </resources>
