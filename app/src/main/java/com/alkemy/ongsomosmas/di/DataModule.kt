@@ -4,6 +4,8 @@ import android.content.Context
 import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
+import com.alkemy.ongsomosmas.data.login.LoginDataSource
+import com.alkemy.ongsomosmas.data.login.LoginService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +45,15 @@ class DataModule {
     @Provides
     fun provideContactUsDataSource(contactUsService: ContactUsService): ContactUsDataSource {
         return ContactUsDataSource(contactUsService)
+    }
+
+    @Provides
+    fun provideLoginService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(LoginService::class.java)
+
+    @Provides
+    fun provideLoginDataSource(loginService: LoginService): LoginDataSource{
+        return  LoginDataSource(loginService)
     }
 
     companion object {

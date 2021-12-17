@@ -43,4 +43,9 @@
     <string name="sign_up_lower_case">Registro</string>
     <string name="sign_up_already_have_an_account">¿Ya tienes una cuenta?</string>
     <string name="sign_up_login">Ingresar</string>
+
+
+    <!-- Login -->
+    <string name="log_in_toast_success">Logeado exitosamente</string>
+    <string name="log_in_toast_error">Falló el logueo</string>
 </resources>

@@ -5,12 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import com.alkemy.ongsomosmas.R
+import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.databinding.ActivityLoginBinding
+import com.alkemy.ongsomosmas.ui.contactus.ContactViewModel
 import com.alkemy.ongsomosmas.ui.home.HomeActivity
 import com.alkemy.ongsomosmas.ui.signup.SignUpActivity
 import com.alkemy.ongsomosmas.utils.EventConstants
+import com.alkemy.ongsomosmas.utils.afterTextChanged
 import com.alkemy.ongsomosmas.utils.sendLog
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -28,6 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private val loginViewModel: LoginViewModel by viewModels()
     private val callbackManager = CallbackManager.Factory.create()
     private lateinit var auth: FirebaseAuth
 
@@ -44,10 +51,32 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
+//            loginViewModel.login("asd@gmail.com", "aSdad123")
             startActivity(Intent(applicationContext, HomeActivity::class.java))
             finish()
         }
+
+        loginViewModel.loginResponse.observe(this, {
+
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    it.data?.let { data -> loginViewModel.persistUserToken(data.token) }
+                    Toast.makeText(
+                        this,
+                        getString(R.string.log_in_toast_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                Resource.Status.ERROR -> {
+                    Toast.makeText(this,getString(R.string.log_in_toast_error),Toast.LENGTH_LONG)
+                }
+                else -> {
+                }
+            }
+        })
     }
+
+
 
     public override fun onStart() {
         super.onStart()
