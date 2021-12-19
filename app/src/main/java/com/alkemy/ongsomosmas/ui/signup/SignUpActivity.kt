@@ -48,7 +48,6 @@ class SignUpActivity : AppCompatActivity() {
 
             with(binding) {
                 // Button enabled
-                cbTermsAndCondition.isEnabled = signUpFormState.isDataValid
                 cbTermsAndCondition.setOnClickListener{
                     btnRegister.isEnabled =
                         signUpFormState.isDataValid && cbTermsAndCondition.isChecked
@@ -58,7 +57,6 @@ class SignUpActivity : AppCompatActivity() {
                 etEmail.error = signUpFormState.emailError?.let(::getString)
                 etPassword.error = signUpFormState.passwordError?.let(::getString)
                 etConfirmPassword.error = signUpFormState.samePasswordError?.let(::getString)
-//                btnRegister.isEnabled = signUpFormState.isChecked
             }
         })
     }
