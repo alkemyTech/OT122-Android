@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            startActivity(Intent(applicationContext, HomeActivity::class.java))
+            startActivity(Intent(applicationContext, SignUpActivity::class.java))
             finish()
         }
     }

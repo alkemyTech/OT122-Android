@@ -1,13 +1,15 @@
 package com.alkemy.ongsomosmas.ui.signup
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import com.alkemy.ongsomosmas.data.model.User
+import com.alkemy.ongsomosmas.R
+import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.databinding.ActivitySignUpBinding
-import com.alkemy.ongsomosmas.utils.ResultAux
+import com.alkemy.ongsomosmas.ui.login.LoginActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,27 +25,34 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        binding.btnRegister.isEnabled = false
+
         binding.btnRegister.setOnClickListener {
-
-            //User only for testing purpuse
-            val user: User = User("Test0015", "test0015@gmail.com", "qwerty123")
-            //TODO Validate entries
-
-            signUpViewModel.registerUser(user).observe(this, Observer { result ->
-                when (result) {
-                    is ResultAux.Loading -> {
-                        Log.d("SIGNUP-STATUS", "Loading...")
-                    }
-                    is ResultAux.Success -> {
-                        Log.d("SIGNUP-STATUS", "Succesful: ${result.data.body()!!.message}")
-                    }
-                    is ResultAux.Failure -> {
-                        Log.d("SIGNUP-STATUS", "ERROR: ${result.exception}")
-                    }
-                }
-            })
+            signUpViewModel.signUp(
+                binding.etFirstName.text.toString(),
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString()
+            )
         }
 
+
+        signUpViewModel.signUpResponse.observe(this, {
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+
+                    MaterialAlertDialogBuilder(this).setTitle("Sign up").setMessage(R.string.User_was_succesfully_register)
+                        .setPositiveButton("OK") { _, _ ->
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finish()
+                        }.show()
+                }
+
+                Resource.Status.ERROR -> {
+
+                }
+
+            }
+        })
 
     }
 }

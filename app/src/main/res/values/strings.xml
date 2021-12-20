@@ -44,6 +44,9 @@
     <string name="sign_up_lower_case">Sign up</string>
     <string name="sign_up_already_have_an_account">Already have an account?</string>
     <string name="sign_up_login">LOGIN</string>
+    <string name="User_was_succesfully_register">User was succesfully register</string>
+
+
 
 
 </resources>
