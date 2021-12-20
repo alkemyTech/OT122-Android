@@ -4,6 +4,8 @@ import android.content.Context
 import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
+import com.alkemy.ongsomosmas.data.signup.SignUpService
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +15,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
@@ -44,6 +47,10 @@ class DataModule {
     fun provideContactUsDataSource(contactUsService: ContactUsService): ContactUsDataSource {
         return ContactUsDataSource(contactUsService)
     }
+
+    @Provides
+    @Singleton
+    fun providerSignUpService(@ApiAlkemy retrofit: Retrofit) = retrofit.create(SignUpService::class.java)
 
     companion object {
         private const val API_URL = "http://ongapi.alkemy.org/"
