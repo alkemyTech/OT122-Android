@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.databinding.ActivityLoginBinding
 import com.alkemy.ongsomosmas.ui.home.HomeActivity
+import com.alkemy.ongsomosmas.ui.signup.SignUpActivity
 import com.alkemy.ongsomosmas.utils.EventConstants
 import com.alkemy.ongsomosmas.utils.afterTextChanged
 import com.alkemy.ongsomosmas.utils.sendLog
@@ -57,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // facebook login setup
-        binding.ibFacebook.setOnClickListener {
+        binding.btnFacebook.setOnClickListener {
             loginWithFacebook()
             sendLog(EventConstants.FB_PRESSED, "User has pressed the facebook button")
         }
