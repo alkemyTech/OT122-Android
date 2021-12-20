@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="email_text" translatable="false">Enter a valid email</string>
-    <string name="password_text" translatable="false">The password must have at least 8 characters, 1 uppercase and 1 number</string>
-    <string name="same_password_text" translatable="false">Passwords are not the same</string>
-    <string name="name_text" translatable="false">Name must have at least 3 characters and without space</string>
-</resources>
