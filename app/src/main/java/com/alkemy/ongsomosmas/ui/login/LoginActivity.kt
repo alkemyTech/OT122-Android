@@ -49,11 +49,11 @@ class LoginActivity : AppCompatActivity() {
             btnLogin.isEnabled = false
             tvEmail.afterTextChanged {
                 btnLogin.isEnabled = model
-                    .validEmailPassword("tvEmail.text","tvPassword.text...")
+                    .validEmailPassword(tvEmail.text.toString(),tvPassword.text.toString())
             }
             tvPassword.afterTextChanged {
                 btnLogin.isEnabled = model
-                    .validEmailPassword("tvEmail.text","tvPassword.text...")
+                    .validEmailPassword(tvEmail.text.toString(),tvPassword.text.toString())
             }
         }
 
