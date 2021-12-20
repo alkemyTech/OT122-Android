@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         // facebook login setup
-        binding.ibFacebook.setOnClickListener {
+        binding.btnFacebook.setOnClickListener {
             loginWithFacebook()
             sendLog(EventConstants.FB_PRESSED, "User has pressed the facebook button")
         }
