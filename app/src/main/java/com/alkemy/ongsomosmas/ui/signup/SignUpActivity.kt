@@ -1,12 +1,16 @@
 package com.alkemy.ongsomosmas.ui.signup
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.alkemy.ongsomosmas.R
+import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.databinding.ActivitySignUpBinding
+import com.alkemy.ongsomosmas.ui.login.LoginActivity
 import com.alkemy.ongsomosmas.utils.afterTextChanged
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,14 +34,13 @@ class SignUpActivity : AppCompatActivity() {
         //Listeners
         with(binding) {
             btnRegister.setOnClickListener {
-                Toast.makeText(this@SignUpActivity, "Calling the API", Toast.LENGTH_SHORT).show()
-            }
-
-            cbTermsAndCondition.setOnClickListener {
-
+                signUpViewModel.signUp(
+                    binding.etFirstName.text.toString(),
+                    binding.etEmail.text.toString(),
+                    binding.etPassword.text.toString()
+                )
             }
         }
-
 
         // Validate data
         checkValue()
@@ -48,7 +51,7 @@ class SignUpActivity : AppCompatActivity() {
 
             with(binding) {
                 // Button enabled
-                cbTermsAndCondition.setOnClickListener{
+                cbTermsAndCondition.setOnClickListener {
                     btnRegister.isEnabled =
                         signUpFormState.isDataValid && cbTermsAndCondition.isChecked
                 }
@@ -57,6 +60,25 @@ class SignUpActivity : AppCompatActivity() {
                 etEmail.error = signUpFormState.emailError?.let(::getString)
                 etPassword.error = signUpFormState.passwordError?.let(::getString)
                 etConfirmPassword.error = signUpFormState.samePasswordError?.let(::getString)
+            }
+        })
+
+        signUpViewModel.signUpResponse.observe(this, {
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+
+                    MaterialAlertDialogBuilder(this).setTitle("Sign up")
+                        .setMessage(R.string.User_was_succesfully_register)
+                        .setPositiveButton("OK") { _, _ ->
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finish()
+                        }.show()
+                }
+
+                Resource.Status.ERROR -> {
+
+                }
+
             }
         })
     }

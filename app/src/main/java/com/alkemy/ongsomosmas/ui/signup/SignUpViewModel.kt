@@ -5,14 +5,24 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.alkemy.ongsomosmas.R
+import com.alkemy.ongsomosmas.data.Resource
+import com.alkemy.ongsomosmas.data.model.signup.SignUpResponse
+import com.alkemy.ongsomosmas.data.signup.SignUpRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.regex.Pattern
 
-class SignUpViewModel @ViewModelInject constructor() : ViewModel() {
+class SignUpViewModel @ViewModelInject constructor(private val signUpRepository: SignUpRepository) :
+    ViewModel() {
 
     private val _signUpFormState = MutableLiveData<SignUpFormState>()
     val signUpFormState: LiveData<SignUpFormState> = _signUpFormState
 
+    private val _signUpResponse: MutableLiveData<Resource<SignUpResponse>> = MutableLiveData()
+    val signUpResponse: LiveData<Resource<SignUpResponse>> = _signUpResponse
 
     // Validate Data
     fun onDataChanged(
@@ -37,6 +47,14 @@ class SignUpViewModel @ViewModelInject constructor() : ViewModel() {
 
     }
 
+    fun signUp(name: String, email: String, password: String) =
+        viewModelScope.launch(Dispatchers.Main) {
+            val result = withContext(Dispatchers.IO) {
+                signUpRepository.registerUser(name, email, password)
+            }
+
+            _signUpResponse.value = result
+        }
 
     // Check name
     private fun isNameValid(name: String) =

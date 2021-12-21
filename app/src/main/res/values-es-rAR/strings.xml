@@ -47,4 +47,5 @@
     <string name="password_text">La contraseña debe tener al menos 8 caracteres, 1 mayúscula y 1 número</string>
     <string name="same_password_text">Las contraseñas no son similares</string>
     <string name="name_text">El nombre debe tener al menos 3 caracteres y sin espacios</string>
+    <string name="User_was_succesfully_register">Usuario registrado exitosamente</string>
 </resources>
