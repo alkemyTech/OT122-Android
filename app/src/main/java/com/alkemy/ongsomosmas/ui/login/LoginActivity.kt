@@ -4,24 +4,31 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.ViewModel
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.databinding.ActivityLoginBinding
 import com.alkemy.ongsomosmas.ui.home.HomeActivity
 import com.alkemy.ongsomosmas.ui.signup.SignUpActivity
 import com.alkemy.ongsomosmas.utils.EventConstants
+import com.alkemy.ongsomosmas.utils.afterTextChanged
 import com.alkemy.ongsomosmas.utils.sendLog
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.regex.Pattern
 
 
 @AndroidEntryPoint
@@ -30,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val callbackManager = CallbackManager.Factory.create()
     private lateinit var auth: FirebaseAuth
+    val model: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +45,20 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = Firebase.auth
 
+        with(binding){
+            btnLogin.isEnabled = false
+            tvEmail.afterTextChanged {
+                btnLogin.isEnabled = model
+                    .validEmailPassword(tvEmail.text.toString(),tvPassword.text.toString())
+            }
+            tvPassword.afterTextChanged {
+                btnLogin.isEnabled = model
+                    .validEmailPassword(tvEmail.text.toString(),tvPassword.text.toString())
+            }
+        }
+
         // facebook login setup
-        binding.ibFacebook.setOnClickListener {
+        binding.btnFacebook.setOnClickListener {
             loginWithFacebook()
             sendLog(EventConstants.FB_PRESSED, "User has pressed the facebook button")
         }
@@ -47,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, HomeActivity::class.java))
             finish()
         }
+
     }
 
     public override fun onStart() {
@@ -109,4 +130,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
+
+
 }
