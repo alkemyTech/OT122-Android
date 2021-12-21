@@ -12,16 +12,6 @@ import kotlinx.coroutines.withContext
 class SignUpViewModel @ViewModelInject constructor(private val signUpRepository: SignUpRepository) :
     ViewModel() {
 
-
-    /*fun registerUser(user: User) = liveData(viewModelScope.coroutineContext + Dispatchers.Main) {
-        emit(ResultAux.Loading())
-        try {
-            emit(ResultAux.Success(signUpRepository.registerUser(user)))
-        } catch (e: Exception) {
-            emit(ResultAux.Failure(e))
-        }
-    }*/
-
     private val _signUpResponse: MutableLiveData<Resource<SignUpResponse>> = MutableLiveData()
     val signUpResponse: LiveData<Resource<SignUpResponse>> = _signUpResponse
 
