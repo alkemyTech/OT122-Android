@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alkemy.ongsomosmas.ui.home.HomeActivity
 import com.alkemy.ongsomosmas.ui.login.LoginActivity
 import com.alkemy.ongsomosmas.ui.login.LoginViewModel
+import com.alkemy.ongsomosmas.ui.signup.SignUpActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
