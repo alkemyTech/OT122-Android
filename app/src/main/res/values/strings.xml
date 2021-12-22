@@ -49,13 +49,7 @@
     <string name="same_password_text">Passwords are not the same</string>
     <string name="name_text">Name must have at least 3 characters and without space</string>
     <string name="User_was_succesfully_register">User was succesfully register</string>
-    <string name="title_activity_base">BaseActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
 </resources>
