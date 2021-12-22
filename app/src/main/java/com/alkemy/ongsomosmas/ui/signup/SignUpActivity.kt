@@ -65,6 +65,7 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpViewModel.signUpResponse.observe(this, {
             when (it.status) {
+
                 Resource.Status.SUCCESS -> {
 
                     MaterialAlertDialogBuilder(this).setTitle("Sign up")
@@ -76,6 +77,17 @@ class SignUpActivity : AppCompatActivity() {
                 }
 
                 Resource.Status.ERROR -> {
+
+                    MaterialAlertDialogBuilder(this).setTitle("Sign up")
+                        .setMessage(R.string.User_was_not_succesfully_register)
+                        .setPositiveButton("OK") { _, _ ->
+                            with(binding) {
+                                etFirstName.error = getString(R.string.name_text)
+                                etEmail.error = getString(R.string.email_text)
+                                etPassword.error = getString(R.string.password_text)
+                                etConfirmPassword.error = getString(R.string.same_password_text)
+                            }
+                        }.show()
 
                 }
 
