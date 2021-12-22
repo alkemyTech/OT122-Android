@@ -68,7 +68,15 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.btnSignUp.setOnClickListener {
+            goToSignUp()
+        }
+
     }
+
+    private fun goToSignUp() =
+        startActivity(Intent(this, SignUpActivity::class.java))
+
 
     public override fun onStart() {
         super.onStart()
@@ -130,6 +138,4 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-
-
 }
