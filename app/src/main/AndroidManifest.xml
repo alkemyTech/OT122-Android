@@ -14,6 +14,11 @@
         android:theme="@style/Theme.ONGSomosMas"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.BaseActivity"
+            android:exported="true"
+            android:label="@string/title_activity_base"
+            android:theme="@style/Theme.ONGSomosMas.NoActionBar" />
+        <activity
             android:name=".ui.signup.SignUpActivity"
             android:exported="true" />
         <activity

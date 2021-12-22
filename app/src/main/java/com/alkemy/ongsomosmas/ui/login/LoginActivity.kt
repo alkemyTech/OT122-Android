@@ -45,6 +45,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = Firebase.auth
 
+        binding.btnSignUp.setOnClickListener{
+            startActivity(Intent(this, SignUpActivity::class.java))
+        }
+
         with(binding){
             btnLogin.isEnabled = false
             tvEmail.afterTextChanged {
@@ -130,6 +134,5 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-
 
 }
