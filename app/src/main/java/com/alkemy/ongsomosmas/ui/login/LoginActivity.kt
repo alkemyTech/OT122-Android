@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -61,14 +62,21 @@ class LoginActivity : AppCompatActivity() {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     it.data?.let { data -> loginViewModel.persistUserToken(data.token) }
-                    Toast.makeText(
-                        this,
-                        getString(R.string.log_in_toast_success),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (it.codeStatus != 200) {
+                        showAlertDialog(
+                            getString(R.string.log_in_toast_error),
+                            it?.data.toString() + " Status: ${it.codeStatus}"
+                        )
+                    } else {
+                        showAlertDialog(
+                            getString(R.string.log_in_toast_success),
+                            it.data.toString() + " Status: ${it.codeStatus}"
+                        )
+                    }
                 }
                 Resource.Status.ERROR -> {
-                    Toast.makeText(this,getString(R.string.log_in_toast_error),Toast.LENGTH_LONG)
+                    showAlertDialog(getString(R.string.log_in_toast_error), it.message.toString())
+
                 }
                 else -> {
                 }
@@ -76,6 +84,21 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    private fun showAlertDialog(title: String, message: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(message)
+
+        builder.setPositiveButton(android.R.string.ok) { dialog, which ->
+
+        }
+
+//        builder.setNegativeButton(android.R.string.cancel) { dialog, which ->
+//
+//        }
+
+        builder.show()
+    }
 
 
     public override fun onStart() {
