@@ -4,13 +4,12 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.ViewModel
 import com.alkemy.ongsomosmas.R
+import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.databinding.ActivityLoginBinding
 import com.alkemy.ongsomosmas.ui.home.HomeActivity
 import com.alkemy.ongsomosmas.ui.signup.SignUpActivity
@@ -22,13 +21,11 @@ import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.regex.Pattern
 
 
 @AndroidEntryPoint
@@ -37,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val callbackManager = CallbackManager.Factory.create()
     private lateinit var auth: FirebaseAuth
-    val model: LoginViewModel by viewModels()
+    val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,19 +42,16 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = Firebase.auth
 
-        binding.btnSignUp.setOnClickListener{
-
-        }
-
-        with(binding){
+        with(binding) {
+          
             btnLogin.isEnabled = false
             tvEmail.afterTextChanged {
-                btnLogin.isEnabled = model
-                    .validEmailPassword(tvEmail.text.toString(),tvPassword.text.toString())
+                btnLogin.isEnabled = loginViewModel
+                    .validEmailPassword(tvEmail.text.toString(), tvPassword.text.toString())
             }
             tvPassword.afterTextChanged {
-                btnLogin.isEnabled = model
-                    .validEmailPassword(tvEmail.text.toString(),tvPassword.text.toString())
+                btnLogin.isEnabled = loginViewModel
+                    .validEmailPassword(tvEmail.text.toString(), tvPassword.text.toString())
             }
         }
 
@@ -68,10 +62,60 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            startActivity(Intent(applicationContext, HomeActivity::class.java))
-            finish()
+            loginViewModel.login(
+                binding.tvEmail.text?.toString()!!,
+                binding.tvPassword.text?.toString()!!
+            )
         }
 
+        binding.btnSignUp.setOnClickListener {
+            goToSignUp()
+        }
+
+        loginViewModel.loginResponse.observe(this, {
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    it.data?.let { data -> loginViewModel.persistUserToken(data.token) }
+                    if (it.codeStatus != 200) {
+                        showAlertDialog(
+                            getString(R.string.log_in_toast_error),
+                            it?.data.toString() + " Status: ${it.codeStatus}"
+                        ) { }
+                    } else {
+                        showAlertDialog(
+                            getString(R.string.log_in_toast_success),
+                            it.data.toString() + " Status: ${it.codeStatus}"
+                        ) { goToHome() }
+                    }
+                }
+                Resource.Status.ERROR -> {
+                    showAlertDialog(
+                        getString(R.string.log_in_toast_error),
+                        it.message.toString()
+                    ) { }
+                }
+                else -> {
+                }
+            }
+        })
+    }
+
+    private fun goToSignUp() =
+        startActivity(Intent(this, SignUpActivity::class.java))
+
+    private fun goToHome() =
+        startActivity(Intent(this, HomeActivity::class.java))
+
+    private fun showAlertDialog(title: String, message: String, action: () -> Unit) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(message)
+
+        builder.setPositiveButton(android.R.string.ok) { dialog, which ->
+            action()
+        }
+
+        builder.show()
     }
 
     public override fun onStart() {

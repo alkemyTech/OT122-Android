@@ -6,8 +6,8 @@ class Preferences(val context: Context) {
 
     private val storage = context.getSharedPreferences("com.alkemy.ongsomosmas_app", Context.MODE_PRIVATE)
 
-    fun saveUserToken(user: String) {
-        storage.edit().putString(Companion.KEY_USER_TOKEN, user).apply()
+    fun saveUserToken(token: String) {
+        storage.edit().putString(Companion.KEY_USER_TOKEN, token).apply()
     }
 
     fun getUserToken(): String {
