@@ -8,12 +8,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.databinding.ActivityLoginBinding
-import com.alkemy.ongsomosmas.ui.contactus.ContactViewModel
 import com.alkemy.ongsomosmas.ui.home.HomeActivity
 import com.alkemy.ongsomosmas.ui.signup.SignUpActivity
 import com.alkemy.ongsomosmas.utils.EventConstants
@@ -35,9 +32,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val loginViewModel: LoginViewModel by viewModels()
     private val callbackManager = CallbackManager.Factory.create()
     private lateinit var auth: FirebaseAuth
+    val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,20 +42,36 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = Firebase.auth
 
+        with(binding) {
+            btnLogin.isEnabled = false
+            tvEmail.afterTextChanged {
+                btnLogin.isEnabled = loginViewModel
+                    .validEmailPassword(tvEmail.text.toString(), tvPassword.text.toString())
+            }
+            tvPassword.afterTextChanged {
+                btnLogin.isEnabled = loginViewModel
+                    .validEmailPassword(tvEmail.text.toString(), tvPassword.text.toString())
+            }
+        }
+
         // facebook login setup
-        binding.ibFacebook.setOnClickListener {
+        binding.btnFacebook.setOnClickListener {
             loginWithFacebook()
             sendLog(EventConstants.FB_PRESSED, "User has pressed the facebook button")
         }
 
         binding.btnLogin.setOnClickListener {
-//            loginViewModel.login("asd@gmail.com", "aSdad123")
-            startActivity(Intent(applicationContext, HomeActivity::class.java))
-            finish()
+            loginViewModel.login(
+                binding.tvEmail.text?.toString()!!,
+                binding.tvPassword.text?.toString()!!
+            )
+        }
+
+        binding.btnSignUp.setOnClickListener {
+            goToSignUp()
         }
 
         loginViewModel.loginResponse.observe(this, {
-
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     it.data?.let { data -> loginViewModel.persistUserToken(data.token) }
@@ -66,17 +79,19 @@ class LoginActivity : AppCompatActivity() {
                         showAlertDialog(
                             getString(R.string.log_in_toast_error),
                             it?.data.toString() + " Status: ${it.codeStatus}"
-                        )
+                        ) { }
                     } else {
                         showAlertDialog(
                             getString(R.string.log_in_toast_success),
                             it.data.toString() + " Status: ${it.codeStatus}"
-                        )
+                        ) { goToHome() }
                     }
                 }
                 Resource.Status.ERROR -> {
-                    showAlertDialog(getString(R.string.log_in_toast_error), it.message.toString())
-
+                    showAlertDialog(
+                        getString(R.string.log_in_toast_error),
+                        it.message.toString()
+                    ) { }
                 }
                 else -> {
                 }
@@ -84,22 +99,23 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun showAlertDialog(title: String, message: String) {
+    private fun goToSignUp() =
+        startActivity(Intent(this, SignUpActivity::class.java))
+
+    private fun goToHome() =
+        startActivity(Intent(this, HomeActivity::class.java))
+
+    private fun showAlertDialog(title: String, message: String, action: () -> Unit) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
         builder.setMessage(message)
 
         builder.setPositiveButton(android.R.string.ok) { dialog, which ->
-
+            action()
         }
-
-//        builder.setNegativeButton(android.R.string.cancel) { dialog, which ->
-//
-//        }
 
         builder.show()
     }
-
 
     public override fun onStart() {
         super.onStart()

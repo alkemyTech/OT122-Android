@@ -6,6 +6,7 @@ import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
+import com.alkemy.ongsomosmas.data.signup.SignUpService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
@@ -23,8 +25,8 @@ class DataModule {
     @ApiAlkemy
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
-            .baseUrl(API_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(API_URL)
+        .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
 
@@ -48,12 +50,17 @@ class DataModule {
     }
 
     @Provides
+    @Singleton
+    fun providerSignUpService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(SignUpService::class.java)
+
+    @Provides
     fun provideLoginService(@ApiAlkemy retrofit: Retrofit) =
         retrofit.create(LoginService::class.java)
 
     @Provides
-    fun provideLoginDataSource(loginService: LoginService): LoginDataSource{
-        return  LoginDataSource(loginService)
+    fun provideLoginDataSource(loginService: LoginService): LoginDataSource {
+        return LoginDataSource(loginService)
     }
 
     companion object {

@@ -22,7 +22,4 @@ class ContactUsRepository @Inject constructor(private val contactUsDataSource: C
             message,
             deletedAt,
             createdAt,
-            updatedAt
-        )
-    )
-}
+            updatedAt)) }
