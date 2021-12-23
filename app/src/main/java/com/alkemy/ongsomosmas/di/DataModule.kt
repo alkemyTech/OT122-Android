@@ -4,8 +4,9 @@ import android.content.Context
 import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
+import com.alkemy.ongsomosmas.data.login.LoginDataSource
+import com.alkemy.ongsomosmas.data.login.LoginService
 import com.alkemy.ongsomosmas.data.signup.SignUpService
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,8 +25,8 @@ class DataModule {
     @ApiAlkemy
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
-            .baseUrl(API_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(API_URL)
+        .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
 
@@ -50,7 +51,17 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun providerSignUpService(@ApiAlkemy retrofit: Retrofit) = retrofit.create(SignUpService::class.java)
+    fun providerSignUpService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(SignUpService::class.java)
+
+    @Provides
+    fun provideLoginService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(LoginService::class.java)
+
+    @Provides
+    fun provideLoginDataSource(loginService: LoginService): LoginDataSource {
+        return LoginDataSource(loginService)
+    }
 
     companion object {
         private const val API_URL = "http://ongapi.alkemy.org/"

@@ -14,7 +14,8 @@ abstract class BaseDataSource {
 //                if(body != null) return Resource.success(body)
 //            }
             val body = response.body()?.data
-            return Resource.success(body)
+            val code = response.code()
+            return Resource.success(body, code)
             //return Resource.error("${response.code()}: ${response.message()}")
         } catch (e: Exception) {
             return Resource.error(e.message ?: "Generic error")
@@ -26,7 +27,7 @@ abstract class BaseDataSource {
  * Clase de asistencia que permite encapsular las respuestas del repositorio
  * según su estados (mientras esta cargando, cuando se cargo con éxito y cuando ocurrió algún error)
  */
-data class Resource<out T>(val status: Status, val data: T?, val message: String?) : Serializable {
+data class Resource<out T>(val status: Status, val data: T?, val message: String?, val codeStatus: Int?) : Serializable {
 
     enum class Status {
         SUCCESS,
@@ -35,11 +36,12 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
     }
 
     companion object {
-        fun <T> success(data: T?): Resource<T> {
+        fun <T> success(data: T?, codeStatus:Int): Resource<T> {
             return Resource(
                 Status.SUCCESS,
                 data,
-                null
+                null,
+                codeStatus
             )
         }
 
@@ -47,7 +49,8 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
             return Resource(
                 Status.ERROR,
                 data,
-                message
+                message,
+                null
             )
         }
 
@@ -55,6 +58,7 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
             return Resource(
                 Status.LOADING,
                 data,
+                null,
                 null
             )
         }
