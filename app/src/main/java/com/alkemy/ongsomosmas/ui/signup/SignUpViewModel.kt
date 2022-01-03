@@ -21,6 +21,16 @@ class SignUpViewModel @ViewModelInject constructor(private val signUpRepository:
     private val _signUpFormState = MutableLiveData<SignUpFormState>()
     val signUpFormState: LiveData<SignUpFormState> = _signUpFormState
 
+    private val _signUpState = MutableLiveData<SignUpState>()
+    val signUpState: LiveData<SignUpState> = _signUpState
+
+    sealed class SignUpState {
+        data class Success(val message: String) : SignUpState()
+        data class PasswordError(val resourceId: Int) : SignUpState()
+        data class Loading(val isLoading: Boolean) : SignUpState()
+        object Error : SignUpState()
+    }
+
     private val _signUpResponse: MutableLiveData<Resource<SignUpResponse>> = MutableLiveData()
     val signUpResponse: LiveData<Resource<SignUpResponse>> = _signUpResponse
 
@@ -38,6 +48,7 @@ class SignUpViewModel @ViewModelInject constructor(private val signUpRepository:
         } else if (!isPasswordValid(password)) {
             _signUpFormState.value =
                 SignUpFormState(passwordError = R.string.password_text)
+            // SignUpState.PasswordError(R.string.password_text)
         } else if (!isPasswordSame(password, confirmPassword)) {
             _signUpFormState.value =
                 SignUpFormState(samePasswordError = R.string.same_password_text)

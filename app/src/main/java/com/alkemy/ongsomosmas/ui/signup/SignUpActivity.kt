@@ -81,6 +81,19 @@ class SignUpActivity : AppCompatActivity() {
 
             }
         })
+
+        signUpViewModel.signUpState.observe(this) {
+            when (it) {
+                is SignUpViewModel.SignUpState.Error -> {}
+                is SignUpViewModel.SignUpState.Loading -> {
+                    it.isLoading
+                }
+                is SignUpViewModel.SignUpState.Success -> {}
+                is SignUpViewModel.SignUpState.PasswordError -> {
+                    it.resourceId
+                }
+            }
+        }
     }
 
     private fun checkValue() {

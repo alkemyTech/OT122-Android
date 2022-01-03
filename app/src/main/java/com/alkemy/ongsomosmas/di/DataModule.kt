@@ -2,6 +2,7 @@ package com.alkemy.ongsomosmas.di
 
 import android.content.Context
 import com.alkemy.ongsomosmas.data.Preferences
+import com.alkemy.ongsomosmas.data.PreferencesImpl
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
@@ -37,7 +38,7 @@ class DataModule {
 
     @Provides
     fun providePreferences(@ApplicationContext context: Context): Preferences {
-        return Preferences(context)
+        return PreferencesImpl(context)
     }
 
     @Provides
