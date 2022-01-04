@@ -53,4 +53,5 @@
     <!-- Login -->
     <string name="log_in_toast_success">Successfully logged in</string>
     <string name="log_in_toast_error">Login failed</string>
+
 </resources>
