@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.data.model.NewsResponse
 import com.alkemy.ongsomosmas.data.model.TestimonialResponse
@@ -60,7 +61,7 @@ class HomeFragment : Fragment() {
                     binding.rvNews.adapter = newsAdapter
                 }
                 Resource.Status.ERROR -> {
-                    Toast.makeText(this.context, "Oops! An error occurred", Toast.LENGTH_SHORT)
+                    Toast.makeText(this.context, getString(R.string.home_error), Toast.LENGTH_SHORT)
                         .show()
                 }
                 else -> {}
