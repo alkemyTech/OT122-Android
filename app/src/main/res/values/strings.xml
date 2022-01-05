@@ -7,7 +7,13 @@
     <string name="facebook_auth_error">Authentication failed.</string>
 
     <!-- Menu -->
-    <string name="menu_item_contact_us">Contact</string>
+    <string name="menu_item_contact_us">Contact us</string>
+    <string name="menu_item_home">Home</string>
+    <string name="menu_item_about_us">About us</string>
+    <string name="menu_item_activities">Activities</string>
+    <string name="menu_item_news">News</string>
+    <string name="menu_item_testimonials">Testimonials</string>
+    <string name="menu_item_contribute">Contribute</string>
 
     <!-- Error -->
     <string name="error_tv_message">An error has occurred obtaining the information.</string>
@@ -53,4 +59,10 @@
     <!-- Login -->
     <string name="log_in_toast_success">Successfully logged in</string>
     <string name="log_in_toast_error">Login failed</string>
+
+    <string name="open_drawer">Open</string>
+    <string name="close_drawer">Close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
