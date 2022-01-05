@@ -70,6 +70,7 @@ class DataModule {
     fun provideNewsService(@ApiAlkemy retrofit: Retrofit) =
         retrofit.create(NewsService::class.java)
 
+    @Provides
     fun provideNewsDataSource(newsService: NewsService): NewsDataSource =
         NewsDataSource(newsService)
 
