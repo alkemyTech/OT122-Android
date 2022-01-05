@@ -30,18 +30,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBar.toolbar)
-        drawerLayout = binding.drawerLayout
-
-        toogle = ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer)
-        drawerLayout.addDrawerListener(toogle)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-
-        val navigationView: NavigationView = binding.navView
-        navigationView.setNavigationItemSelectedListener(this)
-
-        setTitle(R.string.menu_item_home)
+        navigationDrawerConfig()
 
 
     }
@@ -77,6 +66,21 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         toogle.onConfigurationChanged(newConfig)
+    }
+
+    fun navigationDrawerConfig(){
+        drawerLayout = binding.drawerLayout
+
+        toogle = ActionBarDrawerToggle(this, drawerLayout, R.string.open_drawer, R.string.close_drawer)
+        drawerLayout.addDrawerListener(toogle)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
+        val navigationView: NavigationView = binding.navView
+        navigationView.setNavigationItemSelectedListener(this)
+
+        setTitle(R.string.menu_item_home)
     }
 
 
