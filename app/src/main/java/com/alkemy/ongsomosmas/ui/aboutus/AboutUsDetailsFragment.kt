@@ -1,5 +1,7 @@
 package com.alkemy.ongsomosmas.ui.aboutus
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,5 +25,18 @@ class AboutUsDetailsFragment : Fragment(R.layout.fragment_about_us_details) {
         binding.aboutUsDetailsTextviewAdmissionDate.text = "28/05/21"
         binding.aboutUsDetailsTextviewNetworkFacebook.text = "https://www.facebook.com/"
         binding.aboutUsDetailsTextviewNetworkLinkeding.text = "https://www.linkedin.com/feed"
+
+
+        binding.aboutUsDetailsTextviewNetworkFacebook.setOnClickListener{
+            val url = binding.aboutUsDetailsTextviewNetworkFacebook.text.toString()
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
+
+        binding.aboutUsDetailsTextviewNetworkLinkeding.setOnClickListener{
+            val url = binding.aboutUsDetailsTextviewNetworkLinkeding.text.toString()
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
+
+
     }
 }
