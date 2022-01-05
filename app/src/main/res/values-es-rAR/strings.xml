@@ -59,6 +59,8 @@
     <string name="log_in_toast_success">Logeado exitosamente</string>
     <string name="log_in_toast_error">Falló el logueo</string>
 
+
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
+
 </resources>
