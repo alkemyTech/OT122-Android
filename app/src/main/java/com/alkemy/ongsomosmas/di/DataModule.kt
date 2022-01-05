@@ -7,6 +7,9 @@ import com.alkemy.ongsomosmas.data.contactus.ContactUsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
 import com.alkemy.ongsomosmas.data.signup.SignUpService
+import com.alkemy.ongsomosmas.data.testimonials.TestimonialDataSource
+import com.alkemy.ongsomosmas.data.testimonials.TestimonialService
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,6 +64,15 @@ class DataModule {
     @Provides
     fun provideLoginDataSource(loginService: LoginService): LoginDataSource {
         return LoginDataSource(loginService)
+    }
+
+    @Provides
+    fun providerTestimonialService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(TestimonialService::class.java)
+
+    @Provides
+    fun provideTestimonialDataSource(testimonialService: TestimonialService): TestimonialDataSource {
+        return TestimonialDataSource(testimonialService)
     }
 
     companion object {

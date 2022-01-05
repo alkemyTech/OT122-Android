@@ -1,4 +1,4 @@
-package com.alkemy.ongsomosmas.ui.home.adapter
+package com.alkemy.ongsomosmas.ui.home.testimonials
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.model.TestimonialResponse
+import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialsViewHolder
 
 
 class TestimonialAdapter(
@@ -18,6 +19,7 @@ class TestimonialAdapter(
     class LastViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return when (viewType) {
             1 -> {
                 val view = LayoutInflater.from(parent.context)
