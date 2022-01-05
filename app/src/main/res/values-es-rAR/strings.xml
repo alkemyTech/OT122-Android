@@ -49,7 +49,7 @@
     <string name="name_text">El nombre debe tener al menos 3 caracteres y sin espacios</string>
     <string name="User_was_succesfully_register">Usuario registrado exitosamente</string>
     <string name="User_was_not_succesfully_register">El usuario no pudo ser registrado</string>
-
+    <string name="Ok_option">OK</string>
 
     <!-- Login -->
     <string name="log_in_toast_success">Logeado exitosamente</string>

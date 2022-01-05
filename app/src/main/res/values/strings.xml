@@ -50,6 +50,7 @@
     <string name="name_text">Name must have at least 3 characters and without space</string>
     <string name="User_was_succesfully_register">User was succesfully register</string>
     <string name="User_was_not_succesfully_register">User could not be register</string>
+    <string name="Ok_option">OK</string>
 
     <!-- Login -->
     <string name="log_in_toast_success">Successfully logged in</string>

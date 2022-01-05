@@ -78,9 +78,9 @@ class SignUpActivity : AppCompatActivity() {
 
                 Resource.Status.ERROR -> {
 
-                    MaterialAlertDialogBuilder(this).setTitle("Sign up")
+                    MaterialAlertDialogBuilder(this).setTitle(R.string.sign_up_lower_case)
                         .setMessage(R.string.User_was_not_succesfully_register)
-                        .setPositiveButton("OK") { _, _ ->
+                        .setPositiveButton(R.string.Ok_option) { _, _ ->
                             with(binding) {
                                 etFirstName.error = getString(R.string.name_text)
                                 etEmail.error = getString(R.string.email_text)
