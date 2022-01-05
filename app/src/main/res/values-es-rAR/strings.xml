@@ -52,4 +52,5 @@
     <!-- Login -->
     <string name="log_in_toast_success">Logeado exitosamente</string>
     <string name="log_in_toast_error">Falló el logueo</string>
+    <string name="home_error">Oops! Ha ocurrido un error</string>
 </resources>
