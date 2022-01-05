@@ -5,9 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.model.NewsResponse
 import com.alkemy.ongsomosmas.data.model.TestimonialResponse
 import com.alkemy.ongsomosmas.data.model.WelcomeResponse

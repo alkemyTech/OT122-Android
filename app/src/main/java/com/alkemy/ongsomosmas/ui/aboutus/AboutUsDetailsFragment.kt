@@ -19,24 +19,18 @@ class AboutUsDetailsFragment : Fragment(R.layout.fragment_about_us_details) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAboutUsDetailsBinding.bind(view)
 
-
-        binding.aboutUsDetailsTextviewName.text = "María garcia"
-        binding.aboutUsDetailsTextviewJob.text = "Logistica"
-        binding.aboutUsDetailsTextviewAdmissionDate.text = "28/05/21"
-        binding.aboutUsDetailsTextviewNetworkFacebook.text = "https://www.facebook.com/"
-        binding.aboutUsDetailsTextviewNetworkLinkeding.text = "https://www.linkedin.com/feed"
-
-
-        binding.aboutUsDetailsTextviewNetworkFacebook.setOnClickListener{
-            val url = binding.aboutUsDetailsTextviewNetworkFacebook.text.toString()
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        binding.aboutUsDetailsTextviewNetworkFacebook.setOnClickListener {
+            openLink(binding.aboutUsDetailsTextviewNetworkFacebook.text.toString())
         }
 
-        binding.aboutUsDetailsTextviewNetworkLinkeding.setOnClickListener{
-            val url = binding.aboutUsDetailsTextviewNetworkLinkeding.text.toString()
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        binding.aboutUsDetailsTextviewNetworkLinkeding.setOnClickListener {
+            openLink(binding.aboutUsDetailsTextviewNetworkLinkeding.text.toString())
         }
 
 
+    }
+
+    fun openLink(url: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 }
