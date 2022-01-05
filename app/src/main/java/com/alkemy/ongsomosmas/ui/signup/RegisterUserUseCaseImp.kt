@@ -3,9 +3,8 @@ package com.alkemy.ongsomosmas.ui.signup
 import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.data.model.signup.SignUpResponse
 import com.alkemy.ongsomosmas.data.signup.SignUpRepository
-import javax.inject.Inject
 
-class RegisterUserUseCaseImp @Inject constructor(
+class RegisterUserUseCaseImp(
     private val repository: SignUpRepository
 ) : RegisterUserUseCase {
 
