@@ -3,7 +3,6 @@ package com.alkemy.ongsomosmas.ui.signup
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.Resource
@@ -90,7 +89,6 @@ class SignUpActivity : BaseActivity() {
                                 etConfirmPassword.error = getString(R.string.same_password_text)
                             }
                         }.show()
-
                 }
             }
         })
