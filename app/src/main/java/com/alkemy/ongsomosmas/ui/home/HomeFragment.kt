@@ -33,6 +33,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+
+
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         newsAdapter = NewsAdapter(
@@ -59,5 +61,7 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
+
 }
 

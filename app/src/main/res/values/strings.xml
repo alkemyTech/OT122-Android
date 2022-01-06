@@ -55,5 +55,16 @@
     <!-- Login -->
     <string name="log_in_toast_success">Successfully logged in</string>
     <string name="log_in_toast_error">Login failed</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+    <!-- About us details -->
+    <string name="about_us_details_title">Details</string>
+    <string name="about_us_details_name">Name:</string>
+    <string name="about_us_details_job">Job:</string>
+    <string name="about_us_details_admission_date">Admission date:</string>
+    <string name="about_us_details_social_networks">Networks:</string>
+
+
 
 </resources>
