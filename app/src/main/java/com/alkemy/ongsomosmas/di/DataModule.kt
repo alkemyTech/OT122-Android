@@ -5,6 +5,8 @@ import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.PreferencesImpl
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
+import com.alkemy.ongsomosmas.data.home.news.NewsDataSource
+import com.alkemy.ongsomosmas.data.home.news.NewsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
 import com.alkemy.ongsomosmas.data.signup.SignUpRepository
@@ -66,6 +68,14 @@ class DataModule {
     fun provideLoginDataSource(loginService: LoginService): LoginDataSource {
         return LoginDataSource(loginService)
     }
+
+    @Provides
+    fun provideNewsService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(NewsService::class.java)
+
+    @Provides
+    fun provideNewsDataSource(newsService: NewsService): NewsDataSource =
+        NewsDataSource(newsService)
 
     @Provides
     fun providesRegisterUserUseCase(repository: SignUpRepository): RegisterUserUseCase {
