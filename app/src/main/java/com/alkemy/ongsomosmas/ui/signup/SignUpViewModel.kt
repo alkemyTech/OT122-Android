@@ -9,13 +9,14 @@ import androidx.lifecycle.viewModelScope
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.data.model.signup.SignUpResponse
-import com.alkemy.ongsomosmas.data.signup.SignUpRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.regex.Pattern
 
-class SignUpViewModel @ViewModelInject constructor(private val signUpRepository: SignUpRepository) :
+class SignUpViewModel @ViewModelInject constructor(
+    private val registerUser: RegisterUserUseCase
+) :
     ViewModel() {
 
     private val _signUpFormState = MutableLiveData<SignUpFormState>()
@@ -61,7 +62,7 @@ class SignUpViewModel @ViewModelInject constructor(private val signUpRepository:
     fun signUp(name: String, email: String, password: String) =
         viewModelScope.launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) {
-                signUpRepository.registerUser(name, email, password)
+                registerUser(name, email, password)
             }
 
             _signUpResponse.value = result
