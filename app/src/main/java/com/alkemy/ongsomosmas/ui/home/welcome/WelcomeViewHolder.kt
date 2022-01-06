@@ -1,4 +1,4 @@
-package com.alkemy.ongsomosmas.ui.home.adapter
+package com.alkemy.ongsomosmas.ui.home.welcome
 
 import android.view.View
 import android.widget.ImageView

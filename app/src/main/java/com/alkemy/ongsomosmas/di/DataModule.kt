@@ -5,10 +5,13 @@ import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.PreferencesImpl
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
+import com.alkemy.ongsomosmas.data.home.welcome.WelcomeRepository
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
 import com.alkemy.ongsomosmas.data.signup.SignUpRepository
 import com.alkemy.ongsomosmas.data.signup.SignUpService
+import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeUseCase
+import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeUseCaseImp
 import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCase
 import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCaseImp
 import dagger.Module
@@ -70,6 +73,11 @@ class DataModule {
     @Provides
     fun providesRegisterUserUseCase(repository: SignUpRepository): RegisterUserUseCase {
         return RegisterUserUseCaseImp(repository)
+    }
+
+    @Provides
+    fun providesWelcomeUseCase(repository: WelcomeRepository): WelcomeUseCase {
+        return WelcomeUseCaseImp(repository)
     }
 
     companion object {
