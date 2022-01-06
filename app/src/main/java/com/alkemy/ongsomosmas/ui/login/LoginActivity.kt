@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         with(binding) {
+          
             btnLogin.isEnabled = false
             tvEmail.afterTextChanged {
                 btnLogin.isEnabled = loginViewModel
@@ -103,9 +104,10 @@ class LoginActivity : AppCompatActivity() {
     private fun goToSignUp() =
         startActivity(Intent(this, SignUpActivity::class.java))
 
-    private fun goToHome() =
+    private fun goToHome() {
         startActivity(Intent(this, HomeActivity::class.java))
-
+        finish()
+    }
     private fun showAlertDialog(title: String, message: String, action: () -> Unit) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
@@ -179,4 +181,5 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
+
 }

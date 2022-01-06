@@ -9,17 +9,28 @@ import androidx.lifecycle.viewModelScope
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.data.model.signup.SignUpResponse
-import com.alkemy.ongsomosmas.data.signup.SignUpRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.regex.Pattern
 
-class SignUpViewModel @ViewModelInject constructor(private val signUpRepository: SignUpRepository) :
+class SignUpViewModel @ViewModelInject constructor(
+    private val registerUser: RegisterUserUseCase
+) :
     ViewModel() {
 
     private val _signUpFormState = MutableLiveData<SignUpFormState>()
     val signUpFormState: LiveData<SignUpFormState> = _signUpFormState
+
+    private val _signUpState = MutableLiveData<SignUpState>()
+    val signUpState: LiveData<SignUpState> = _signUpState
+
+    sealed class SignUpState {
+        data class Success(val message: String) : SignUpState()
+        data class PasswordError(val resourceId: Int) : SignUpState()
+        data class Loading(val isLoading: Boolean) : SignUpState()
+        object Error : SignUpState()
+    }
 
     private val _signUpResponse: MutableLiveData<Resource<SignUpResponse>> = MutableLiveData()
     val signUpResponse: LiveData<Resource<SignUpResponse>> = _signUpResponse
@@ -38,6 +49,7 @@ class SignUpViewModel @ViewModelInject constructor(private val signUpRepository:
         } else if (!isPasswordValid(password)) {
             _signUpFormState.value =
                 SignUpFormState(passwordError = R.string.password_text)
+            // SignUpState.PasswordError(R.string.password_text)
         } else if (!isPasswordSame(password, confirmPassword)) {
             _signUpFormState.value =
                 SignUpFormState(samePasswordError = R.string.same_password_text)
@@ -50,7 +62,7 @@ class SignUpViewModel @ViewModelInject constructor(private val signUpRepository:
     fun signUp(name: String, email: String, password: String) =
         viewModelScope.launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) {
-                signUpRepository.registerUser(name, email, password)
+                registerUser(name, email, password)
             }
 
             _signUpResponse.value = result
