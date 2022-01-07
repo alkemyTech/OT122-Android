@@ -53,11 +53,15 @@
     <string name="User_was_not_succesfully_register">User could not be register</string>
     <string name="Ok_option">OK</string>
 
+
     <!-- Login -->
     <string name="log_in_toast_success">Successfully logged in</string>
     <string name="log_in_toast_error">Login failed</string>
-    <!-- TODO: Remove or change this placeholder text -->
 
+
+    <!-- About Us -->
+    <string name="about_us_title">About Us</string>
+    <string name="about_us_description">About Us description</string>
 
     <!-- About us details -->
     <string name="about_us_details_title">Details</string>
