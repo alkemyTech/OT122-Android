@@ -3,18 +3,18 @@ package com.alkemy.ongsomosmas.ui.signup
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.databinding.ActivitySignUpBinding
+import com.alkemy.ongsomosmas.ui.BaseActivity
 import com.alkemy.ongsomosmas.ui.login.LoginActivity
 import com.alkemy.ongsomosmas.utils.afterTextChanged
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val signUpViewModel: SignUpViewModel by viewModels()
 
@@ -34,6 +34,7 @@ class SignUpActivity : AppCompatActivity() {
         //Listeners
         with(binding) {
             btnRegister.setOnClickListener {
+                showProgressDialog()
                 signUpViewModel.signUp(
                     binding.etFirstName.text.toString(),
                     binding.etEmail.text.toString(),
@@ -65,8 +66,9 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpViewModel.signUpResponse.observe(this, {
             when (it.status) {
-                Resource.Status.SUCCESS -> {
 
+                Resource.Status.SUCCESS -> {
+                    hideProgressDialog()
                     MaterialAlertDialogBuilder(this).setTitle("Sign up")
                         .setMessage(R.string.User_was_succesfully_register)
                         .setPositiveButton("OK") { _, _ ->
@@ -76,9 +78,18 @@ class SignUpActivity : AppCompatActivity() {
                 }
 
                 Resource.Status.ERROR -> {
-
+                    hideProgressDialog()
+                    MaterialAlertDialogBuilder(this).setTitle(R.string.sign_up_lower_case)
+                        .setMessage(R.string.User_was_not_succesfully_register)
+                        .setPositiveButton(R.string.Ok_option) { _, _ ->
+                            with(binding) {
+                                etFirstName.error = getString(R.string.name_text)
+                                etEmail.error = getString(R.string.email_text)
+                                etPassword.error = getString(R.string.password_text)
+                                etConfirmPassword.error = getString(R.string.same_password_text)
+                            }
+                        }.show()
                 }
-
             }
         })
 
