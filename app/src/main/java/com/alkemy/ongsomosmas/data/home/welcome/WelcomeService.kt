@@ -9,5 +9,5 @@ import retrofit2.http.GET
 interface WelcomeService {
 
     @GET("api/slides")
-    suspend fun getWelcome() : Response<ApiResponse<WelcomeResponse>>
+    suspend fun getWelcome(): Response<ApiResponse<List<WelcomeResponse>>>
 }

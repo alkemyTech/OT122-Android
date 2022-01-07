@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class WelcomeRepositoryImp @Inject constructor(val welcomeDataSource: WelcomeDataSource) : WelcomeRepository {
 
-    override suspend fun getWelcome(): Resource<WelcomeResponse> =
+    override suspend fun getWelcome(): Resource<List<WelcomeResponse>> =
         welcomeDataSource.getWelcome()
 
 }

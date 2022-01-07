@@ -5,7 +5,10 @@ import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.PreferencesImpl
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
+import com.alkemy.ongsomosmas.data.home.welcome.WelcomeDataSource
 import com.alkemy.ongsomosmas.data.home.welcome.WelcomeRepository
+import com.alkemy.ongsomosmas.data.home.welcome.WelcomeRepositoryImp
+import com.alkemy.ongsomosmas.data.home.welcome.WelcomeService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
 import com.alkemy.ongsomosmas.data.signup.SignUpRepository
@@ -48,8 +51,9 @@ class DataModule {
     }
 
     @Provides
-    fun provideContactUsService(@ApiAlkemy retrofit: Retrofit) =
-        retrofit.create(ContactUsService::class.java)
+    fun provideContactUsService(@ApiAlkemy retrofit: Retrofit): ContactUsService {
+        return retrofit.create(ContactUsService::class.java)
+    }
 
     @Provides
     fun provideContactUsDataSource(contactUsService: ContactUsService): ContactUsDataSource {
@@ -58,16 +62,28 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun providerSignUpService(@ApiAlkemy retrofit: Retrofit) =
-        retrofit.create(SignUpService::class.java)
+    fun providerSignUpService(@ApiAlkemy retrofit: Retrofit): SignUpService {
+        return retrofit.create(SignUpService::class.java)
+    }
 
     @Provides
-    fun provideLoginService(@ApiAlkemy retrofit: Retrofit) =
-        retrofit.create(LoginService::class.java)
+    fun provideLoginService(@ApiAlkemy retrofit: Retrofit): LoginService {
+        return retrofit.create(LoginService::class.java)
+    }
 
     @Provides
     fun provideLoginDataSource(loginService: LoginService): LoginDataSource {
         return LoginDataSource(loginService)
+    }
+
+    @Provides
+    fun providesWelcomeService(@ApiAlkemy retrofit: Retrofit): WelcomeService {
+        return retrofit.create(WelcomeService::class.java)
+    }
+
+    @Provides
+    fun providesWelcomeRepository(welcomeDataSource: WelcomeDataSource): WelcomeRepository {
+        return WelcomeRepositoryImp(welcomeDataSource)
     }
 
     @Provides
@@ -78,6 +94,11 @@ class DataModule {
     @Provides
     fun providesWelcomeUseCase(repository: WelcomeRepository): WelcomeUseCase {
         return WelcomeUseCaseImp(repository)
+    }
+
+    @Provides
+    fun providesWelcomeDatasource(welcomeService: WelcomeService): WelcomeDataSource {
+        return WelcomeDataSource(welcomeService)
     }
 
     companion object {
