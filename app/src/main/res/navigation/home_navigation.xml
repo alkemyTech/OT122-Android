@@ -9,12 +9,20 @@
         android:id="@+id/nav_home_fragment"
         android:name="com.alkemy.ongsomosmas.ui.home.HomeFragment"
         android:label="Inicio"
-        tools:layout="@layout/fragment_home"
-        />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_fragment_to_aboutUsDetailsFragment2"
+            app:destination="@id/aboutUsDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_contact_us_fragment"
         android:name="com.alkemy.ongsomosmas.ui.contactus.ContactFragment"
         android:label="Contacto"
         tools:layout="@layout/fragment_contact_us" />
+    <fragment
+        android:id="@+id/aboutUsDetailsFragment"
+        android:name="com.alkemy.ongsomosmas.ui.aboutus.AboutUsDetailsFragment"
+        android:label="@string/about_us_details_title"
+        tools:layout="@layout/fragment_about_us_details" />
 </navigation>

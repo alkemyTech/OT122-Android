@@ -5,9 +5,14 @@ import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.PreferencesImpl
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
+import com.alkemy.ongsomosmas.data.home.news.NewsDataSource
+import com.alkemy.ongsomosmas.data.home.news.NewsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
+import com.alkemy.ongsomosmas.data.signup.SignUpRepository
 import com.alkemy.ongsomosmas.data.signup.SignUpService
+import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCase
+import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCaseImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -62,6 +67,19 @@ class DataModule {
     @Provides
     fun provideLoginDataSource(loginService: LoginService): LoginDataSource {
         return LoginDataSource(loginService)
+    }
+
+    @Provides
+    fun provideNewsService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(NewsService::class.java)
+
+    @Provides
+    fun provideNewsDataSource(newsService: NewsService): NewsDataSource =
+        NewsDataSource(newsService)
+
+    @Provides
+    fun providesRegisterUserUseCase(repository: SignUpRepository): RegisterUserUseCase {
+        return RegisterUserUseCaseImp(repository)
     }
 
     companion object {
