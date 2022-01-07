@@ -96,6 +96,9 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:[8.1)'
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 
+    //CustomActivityOnCrash
+    implementation 'cat.ereza:customactivityoncrash:2.3.0'
+
     testImplementation 'junit:junit:4.13'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1'
