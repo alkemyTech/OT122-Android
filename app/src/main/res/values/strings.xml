@@ -7,7 +7,13 @@
     <string name="facebook_auth_error">Authentication failed.</string>
 
     <!-- Menu -->
-    <string name="menu_item_contact_us">Contact</string>
+    <string name="menu_item_contact_us">Contact us</string>
+    <string name="menu_item_home">Home</string>
+    <string name="menu_item_about_us">About us</string>
+    <string name="menu_item_activities">Activities</string>
+    <string name="menu_item_news">News</string>
+    <string name="menu_item_testimonials">Testimonials</string>
+    <string name="menu_item_contribute">Contribute</string>
 
     <!-- Error -->
     <string name="error_tv_message">An error has occurred obtaining the information.</string>
@@ -71,5 +77,10 @@
     <string name="about_us_details_social_networks">Networks:</string>
 
 
+
+
+    <string name="open_drawer">Open</string>
+    <string name="close_drawer">Close</string>
+   
 
 </resources>
