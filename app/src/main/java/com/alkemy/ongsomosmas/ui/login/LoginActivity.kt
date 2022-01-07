@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         with(binding) {
+          
             btnLogin.isEnabled = false
             tvEmail.afterTextChanged {
                 btnLogin.isEnabled = loginViewModel
@@ -68,6 +69,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnSignUp.setOnClickListener {
+
             goToSignUp()
         }
 
@@ -116,6 +118,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         builder.show()
+
     }
 
     public override fun onStart() {
@@ -178,4 +181,5 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
+
 }

@@ -43,11 +43,13 @@
     <string name="sign_up_lower_case">Registro</string>
     <string name="sign_up_already_have_an_account">¿Ya tienes una cuenta?</string>
     <string name="sign_up_login">Ingresar</string>
-    <string name="email_text">Iingresa un correo válido</string>
+    <string name="email_text">Ingresa un correo válido</string>
     <string name="password_text">La contraseña debe tener al menos 8 caracteres, 1 mayúscula y 1 número</string>
     <string name="same_password_text">Las contraseñas no son similares</string>
     <string name="name_text">El nombre debe tener al menos 3 caracteres y sin espacios</string>
     <string name="User_was_succesfully_register">Usuario registrado exitosamente</string>
+    <string name="User_was_not_succesfully_register">El usuario no pudo ser registrado</string>
+    <string name="Ok_option">OK</string>
 
     <!-- Login -->
     <string name="log_in_toast_success">Logeado exitosamente</string>
@@ -56,4 +58,14 @@
     <!-- About Us -->
     <string name="about_us_title">Nosotros</string>
     <string name="about_us_description">Descripcion nosotros</string>
+  
+    <string name="home_error">Oops! Ha ocurrido un error</string>
+
+    <!-- About us details -->
+    <string name="about_us_details_title">Detalle</string>
+    <string name="about_us_details_name">Nombre:</string>
+    <string name="about_us_details_job">Puesto:</string>
+    <string name="about_us_details_admission_date">Fecha de ingreso:</string>
+    <string name="about_us_details_social_networks">Redes:</string>
+
 </resources>
