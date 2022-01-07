@@ -3,7 +3,6 @@ package com.alkemy.ongsomosmas.ui.signup
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.Resource
@@ -67,6 +66,7 @@ class SignUpActivity : BaseActivity() {
 
         signUpViewModel.signUpResponse.observe(this, {
             when (it.status) {
+
                 Resource.Status.SUCCESS -> {
                     hideProgressDialog()
                     MaterialAlertDialogBuilder(this).setTitle("Sign up")
@@ -79,8 +79,17 @@ class SignUpActivity : BaseActivity() {
 
                 Resource.Status.ERROR -> {
                     hideProgressDialog()
+                    MaterialAlertDialogBuilder(this).setTitle(R.string.sign_up_lower_case)
+                        .setMessage(R.string.User_was_not_succesfully_register)
+                        .setPositiveButton(R.string.Ok_option) { _, _ ->
+                            with(binding) {
+                                etFirstName.error = getString(R.string.name_text)
+                                etEmail.error = getString(R.string.email_text)
+                                etPassword.error = getString(R.string.password_text)
+                                etConfirmPassword.error = getString(R.string.same_password_text)
+                            }
+                        }.show()
                 }
-
             }
         })
 
