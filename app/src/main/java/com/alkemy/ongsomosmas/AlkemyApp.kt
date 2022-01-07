@@ -11,7 +11,6 @@ class AlkemyApp: Application(){
     override fun onCreate() {
         super.onCreate()
         crashConfig()
-
     }
 
     private fun crashConfig() {
@@ -19,7 +18,6 @@ class AlkemyApp: Application(){
             .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT)
             .showErrorDetails(false)
             .minTimeBetweenCrashesMs(2000)
-            .logErrorOnRestart(false)
             .logErrorOnRestart(false)
             .errorDrawable(R.drawable.logo_somos_mas)
             .restartActivity(LoginActivity::class.java)
