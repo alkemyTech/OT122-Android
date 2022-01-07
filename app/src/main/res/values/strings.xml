@@ -32,6 +32,7 @@
     <string name="home_tv_title">Welcome</string>
     <string name="home_tv_title_news">News</string>
     <string name="home_tv_title_testimonial">Testimonial</string>
+    <string name="home_error">Oops! An error occurred</string>
 
     <!-- SignUp -->
     <string name="sign_up_name">Name</string>
@@ -55,5 +56,16 @@
     <!-- Login -->
     <string name="log_in_toast_success">Successfully logged in</string>
     <string name="log_in_toast_error">Login failed</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+    <!-- About us details -->
+    <string name="about_us_details_title">Details</string>
+    <string name="about_us_details_name">Name:</string>
+    <string name="about_us_details_job">Job:</string>
+    <string name="about_us_details_admission_date">Admission date:</string>
+    <string name="about_us_details_social_networks">Networks:</string>
+
+
 
 </resources>

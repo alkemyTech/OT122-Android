@@ -1,4 +1,4 @@
-package com.alkemy.ongsomosmas.ui.home.adapter
+package com.alkemy.ongsomosmas.ui.home.news
 
 import android.view.LayoutInflater
 import android.view.View

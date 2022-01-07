@@ -54,5 +54,13 @@
     <!-- Login -->
     <string name="log_in_toast_success">Logeado exitosamente</string>
     <string name="log_in_toast_error">Falló el logueo</string>
+    <string name="home_error">Oops! Ha ocurrido un error</string>
+
+    <!-- About us details -->
+    <string name="about_us_details_title">Detalle</string>
+    <string name="about_us_details_name">Nombre:</string>
+    <string name="about_us_details_job">Puesto:</string>
+    <string name="about_us_details_admission_date">Fecha de ingreso:</string>
+    <string name="about_us_details_social_networks">Redes:</string>
 
 </resources>
