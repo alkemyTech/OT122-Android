@@ -16,8 +16,8 @@ class AboutUsAdapter(
     private val onClick: (position: Int) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    class ViewHolder(view: View,
-                     onClick: (position: Int) -> Unit
+    inner class ViewHolder(
+        view: View
     ) : RecyclerView.ViewHolder(view) {
         private val binding = ItemAboutUsBinding.bind(view)
         val memberName: TextView = binding.tvAboutUsName
@@ -38,7 +38,7 @@ class AboutUsAdapter(
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_about_us, parent, false)
-        return ViewHolder(view,onClick)
+        return ViewHolder(view)
 
     }
 

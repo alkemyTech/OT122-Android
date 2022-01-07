@@ -25,7 +25,7 @@ class AboutUsFragment: Fragment() {
         aboutUsAdapter = AboutUsAdapter(
             members,
             onClick = {
-//                Toast.makeText(context, "Seleccionaste la posicion $it", Toast.LENGTH_SHORT).show()
+                TODO("implementOnClick")
             }
         )
         binding.rvMembers.adapter = aboutUsAdapter
