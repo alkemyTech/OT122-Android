@@ -5,7 +5,7 @@ import com.alkemy.ongsomosmas.data.signup.SignUpRepositoryImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.components.ApplicationComponent
 
 
 /**
@@ -15,7 +15,7 @@ import dagger.hilt.android.components.ActivityRetainedComponent
  */
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(ApplicationComponent::class)
 abstract class SignUpModule {
 
     @Binds
