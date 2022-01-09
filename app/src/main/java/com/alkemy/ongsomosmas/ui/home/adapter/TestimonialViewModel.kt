@@ -17,12 +17,16 @@ class TestimonialViewModel @ViewModelInject constructor(private val testimonialR
     private val _testimonials = MutableLiveData<Resource<List<TestimonialResponse>>>()
     val testimonials: LiveData<Resource<List<TestimonialResponse>>> = _testimonials
 
-    fun getTestimonials() {
+    fun getTestimonials(): Boolean {
         viewModelScope.launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) {
                 testimonialRepositoryImp.getTestimonials()
             }
             _testimonials.value = result
         }
+        return (_testimonials != null)
     }
+
+
+
 }
