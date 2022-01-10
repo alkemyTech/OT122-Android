@@ -69,6 +69,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnSignUp.setOnClickListener {
+
             goToSignUp()
         }
 
@@ -117,6 +118,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         builder.show()
+
     }
 
     public override fun onStart() {

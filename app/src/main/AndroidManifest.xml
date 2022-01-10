@@ -38,7 +38,8 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true"
-            android:label="@string/app_name" /> <!-- Custom imagen for Firebase Notification -->
+            android:label="@string/app_name"
+            /> <!-- Custom imagen for Firebase Notification -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/logo_somos_mas" /> <!-- Custom color for Firebase Notification -->
