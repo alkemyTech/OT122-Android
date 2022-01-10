@@ -34,7 +34,6 @@ class HomeFragment : Fragment() {
     // Datos de prueba. Eliminar cuando se implemente la integración con la api
     private var news = mutableListOf<NewsResponse>()
     private var testimonial = mutableListOf<TestimonialResponse>()
-    //private var welcome = mutableListOf<WelcomeResponse>()
     private val welcomeViewModel: WelcomeViewModel by viewModels()
 
     override fun onCreateView(
@@ -52,9 +51,8 @@ class HomeFragment : Fragment() {
 
         binding.rvNews.adapter = newsAdapter
 
-        //welcomeAdapter = WelcomeAdapter(welcome)
-        //binding.rvSlides.adapter = welcomeAdapter
         setObserver()
+        welcomeViewModel.welcomeSlide()
 
         testimonialAdapter = TestimonialAdapter(
             testimonial,
