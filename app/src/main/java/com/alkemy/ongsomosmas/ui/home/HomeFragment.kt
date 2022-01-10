@@ -75,13 +75,12 @@ class HomeFragment : Fragment() {
 
             when (it.status) {
                 Resource.Status.SUCCESS -> {
-                    val data =
-                        it.data?.map { item -> WelcomeResponse(
-                            item.name,
-                            item.content,
-                            item.image,
-                        ) } ?: emptyList()
-                    binding.rvSlides.adapter = WelcomeAdapter(data)
+                        it.data?.let { item ->
+                            welcomeAdapter = WelcomeAdapter(
+                                item
+                            )
+                        }
+                    binding.rvSlides.adapter = welcomeAdapter
                 }
                 Resource.Status.ERROR -> {
                 }
