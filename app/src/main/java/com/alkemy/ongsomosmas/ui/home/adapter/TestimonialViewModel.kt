@@ -14,19 +14,35 @@ import kotlinx.coroutines.withContext
 
 class TestimonialViewModel @ViewModelInject constructor(private val testimonialRepositoryImp: TestimonialRepositoryImp) :
     ViewModel() {
-    private val _testimonials = MutableLiveData<Resource<List<TestimonialResponse>>>()
-    val testimonials: LiveData<Resource<List<TestimonialResponse>>> = _testimonials
+    private val _testimonialsViewState = MutableLiveData<TestimonialState>()
+    val testimonialsViewState: LiveData<TestimonialState> = _testimonialsViewState
 
-    fun getTestimonials(): Boolean {
+
+    fun getTestimonials(){
         viewModelScope.launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) {
                 testimonialRepositoryImp.getTestimonials()
             }
-            _testimonials.value = result
+            when(result.status){
+                Resource.Status.SUCCESS -> {
+                    _testimonialsViewState.value = TestimonialState.Loading(false)
+                    _testimonialsViewState.value = result.data?.let { TestimonialState.Success(it) }
+                }
+                Resource.Status.ERROR -> {
+                    _testimonialsViewState.value = TestimonialState.Loading(false)
+                    _testimonialsViewState.value = TestimonialState.Error
+                }
+                Resource.Status.LOADING -> {
+                    _testimonialsViewState.value = TestimonialState.Loading(true)
+                }
+            }
         }
-        return (_testimonials != null)
     }
 
+}
 
-
+sealed class TestimonialState{
+    data class Success(val listTestimonial: List<TestimonialResponse>) : TestimonialState()
+    object Error : TestimonialState()
+    data class Loading(val isLoading: Boolean) : TestimonialState()
 }

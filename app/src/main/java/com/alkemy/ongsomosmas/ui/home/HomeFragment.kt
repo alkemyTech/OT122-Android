@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.data.model.NewsResponse
+import com.alkemy.ongsomosmas.data.model.TestimonialResponse
 import com.alkemy.ongsomosmas.data.model.WelcomeResponse
 import com.alkemy.ongsomosmas.databinding.FragmentHomeBinding
+import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialState
 import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialViewModel
 import com.alkemy.ongsomosmas.ui.home.adapter.WelcomeAdapter
 import com.alkemy.ongsomosmas.ui.home.news.NewsAdapter
-import com.alkemy.ongsomosmas.ui.home.testimonials.TestimonialAdapter
+import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,40 +40,47 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        setUpObservers()
+        testimonialViewModel.getTestimonials()
+
         newsAdapter = NewsAdapter(
             news,
             onClickLastItem = {
                 //TODO
             })
-
         binding.rvNews.adapter = newsAdapter
 
-        if(testimonialViewModel.getTestimonials()){
-            testimonialViewModel.testimonials.observe(viewLifecycleOwner, {
-
-                it.data?.let { testimonial ->
-                    testimonialAdapter = TestimonialAdapter(
-                        testimonial,
-                        onClick = {
-                            //TODO
-                        },
-                        onClickLastItem = {
-                            //TODO
-                        })
-                }
-                binding.rvTestimonial.adapter = testimonialAdapter
-            })
-        }
-
-        else{
-            binding.containerTestimonials.visibility = View.GONE;
-        }
 
         welcomeAdapter = WelcomeAdapter(welcome)
         binding.rvSlides.adapter = welcomeAdapter
 
-
         return binding.root
+    }
+
+    private fun setUpObservers(){
+        testimonialViewModel.testimonialsViewState.observe(viewLifecycleOwner){
+            when(it){
+                is TestimonialState.Success -> {
+                    setDataAndShowRecycler(it.listTestimonial)
+                }
+                is TestimonialState.Error -> {
+                    binding.rvTestimonial.isVisible=false
+                }
+                is TestimonialState.Loading -> {
+                    showLoading(it.isLoading)
+                }
+            }
+        }
+    }
+
+    private fun showLoading(loading: Boolean) {
+        //TODO implements loading
+    }
+
+    private fun setDataAndShowRecycler(listTestimonial: List<TestimonialResponse>) {
+        testimonialAdapter = TestimonialAdapter(listTestimonial,
+            onClick = {}, onClickLastItem = {})
+        binding.rvTestimonial.adapter = testimonialAdapter
     }
 }
 
