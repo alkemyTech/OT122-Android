@@ -14,15 +14,40 @@ import kotlinx.coroutines.withContext
 
 class NewsViewModel @ViewModelInject constructor(private val newsRepositoryImp: NewsRepositoryImp) :
     ViewModel() {
-        private val _news = MutableLiveData<Resource<List<NewsResponse>>>()
-        val news: LiveData<Resource<List<NewsResponse>>> = _news
+    private val _news = MutableLiveData<Resource<List<NewsResponse>>>()
+    val news: LiveData<Resource<List<NewsResponse>>> = _news
 
-        fun getNews() {
-            viewModelScope.launch(Dispatchers.Main) {
-                val result = withContext(Dispatchers.IO) {
-                    newsRepositoryImp.getNews()
-                }
-                _news.value = result
+    private val _allNews = MutableLiveData<List<NewsResponse>>()
+    val allNews: LiveData<List<NewsResponse>> = _allNews
+
+    fun getNews() {
+        viewModelScope.launch(Dispatchers.Main) {
+            val result = withContext(Dispatchers.IO) {
+                newsRepositoryImp.getNews()
             }
+            _news.value = result
         }
+    }
+
+    fun getAllNews() {
+        viewModelScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO){
+                newsRepositoryImp.getNews()
+            }.run {
+                when(status){
+                    Resource.Status.SUCCESS -> {
+                        data?.let {
+                            _allNews.value = it
+                        }
+                    }
+                    Resource.Status.ERROR -> {
+                        _allNews.value = emptyList()
+                    }
+                    else -> {}
+                }
+            }
+
+        }
+    }
+
 }
