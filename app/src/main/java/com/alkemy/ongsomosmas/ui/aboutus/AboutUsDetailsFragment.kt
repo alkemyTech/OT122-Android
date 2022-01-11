@@ -1,5 +1,6 @@
 package com.alkemy.ongsomosmas.ui.aboutus
 
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +20,7 @@ class AboutUsDetailsFragment : Fragment(R.layout.fragment_about_us_details) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAboutUsDetailsBinding.bind(view)
 
+
         binding.aboutUsDetailsTextviewNetworkFacebook.setOnClickListener {
             openLink(binding.aboutUsDetailsTextviewNetworkFacebook.text.toString())
         }
@@ -26,7 +28,6 @@ class AboutUsDetailsFragment : Fragment(R.layout.fragment_about_us_details) {
         binding.aboutUsDetailsTextviewNetworkLinkeding.setOnClickListener {
             openLink(binding.aboutUsDetailsTextviewNetworkLinkeding.text.toString())
         }
-
 
     }
 

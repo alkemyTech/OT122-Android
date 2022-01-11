@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_contact_us_fragment"
-        android:title="@string/menu_item_contact_us" />
+
+    <group>
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/menu_item_home" />
+
+        <item
+            android:id="@+id/nav_about_us"
+            android:title="@string/menu_item_about_us" />
+
+        <item
+            android:id="@+id/nav_activities"
+            android:title="@string/menu_item_activities" />
+
+        <item
+            android:id="@+id/nav_news"
+            android:title="@string/menu_item_news" />
+
+        <item
+            android:id="@+id/nav_testimonials"
+            android:title="@string/menu_item_testimonials" />
+        <item
+            android:id="@+id/nav_contact_us"
+            android:title="@string/menu_item_contact_us" />
+        <item
+            android:id="@+id/nav_contribute"
+            android:title="@string/menu_item_contribute" />
+    </group>
+
 </menu>

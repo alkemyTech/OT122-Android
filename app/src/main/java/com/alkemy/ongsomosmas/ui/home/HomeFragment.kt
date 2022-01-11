@@ -84,6 +84,8 @@ class HomeFragment : Fragment() {
 
         binding.rvTestimonial.adapter = testimonialAdapter
 
+
+
         return binding.root
     }
 
