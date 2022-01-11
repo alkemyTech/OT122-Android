@@ -77,5 +77,6 @@
 
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
+    <string name="news_error_fragment">Ha ocurrido un error obteniendo la información</string>
 
 </resources>
