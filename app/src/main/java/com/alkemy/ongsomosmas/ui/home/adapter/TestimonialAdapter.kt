@@ -18,6 +18,7 @@ class TestimonialAdapter(
     class LastViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return when (viewType) {
             1 -> {
                 val view = LayoutInflater.from(parent.context)

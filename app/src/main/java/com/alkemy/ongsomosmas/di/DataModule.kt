@@ -6,18 +6,18 @@ import com.alkemy.ongsomosmas.data.PreferencesImpl
 import com.alkemy.ongsomosmas.data.aboutus.AboutUsDataSource
 import com.alkemy.ongsomosmas.data.aboutus.AboutUsRepository
 import com.alkemy.ongsomosmas.data.aboutus.AboutUsService
+
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
-import com.alkemy.ongsomosmas.data.home.news.NewsDataSource
-import com.alkemy.ongsomosmas.data.home.news.NewsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
-import com.alkemy.ongsomosmas.data.signup.SignUpRepository
 import com.alkemy.ongsomosmas.data.signup.SignUpService
+
 import com.alkemy.ongsomosmas.ui.aboutus.GetMembersUseCase
 import com.alkemy.ongsomosmas.ui.aboutus.GetMembersUseCaseImp
 import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCase
 import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCaseImp
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,7 +48,7 @@ class DataModule {
 
     @Provides
     fun providePreferences(@ApplicationContext context: Context): Preferences {
-        return PreferencesImpl(context)
+        return Preferences(context)
     }
 
     @Provides
