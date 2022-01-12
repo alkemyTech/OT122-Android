@@ -7,6 +7,12 @@
 
     <!-- Menu -->
     <string name="menu_item_contact_us">Contacto</string>
+    <string name="menu_item_home">Inicio</string>
+    <string name="menu_item_about_us">Nosotros</string>
+    <string name="menu_item_activities">Actividades</string>
+    <string name="menu_item_news">Novedades</string>
+    <string name="menu_item_testimonials">Testimonios</string>
+    <string name="menu_item_contribute">Contribuye</string>
 
     <!-- Error -->
     <string name="error_tv_message">Ha ocurrido un error obteniendo la información.</string>
@@ -68,5 +74,9 @@
     <string name="about_us_details_job">Puesto:</string>
     <string name="about_us_details_admission_date">Fecha de ingreso:</string>
     <string name="about_us_details_social_networks">Redes:</string>
+
+    <string name="open_drawer">Open</string>
+    <string name="close_drawer">Close</string>
+
 
 </resources>
