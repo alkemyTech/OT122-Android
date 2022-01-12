@@ -17,8 +17,9 @@ class NewsViewModel @ViewModelInject constructor(private val newsRepositoryImp: 
     private val _news = MutableLiveData<Resource<List<NewsResponse>>>()
     val news: LiveData<Resource<List<NewsResponse>>> = _news
 
-    private val _allNews = MutableLiveData<List<NewsResponse>>()
-    val allNews: LiveData<List<NewsResponse>> = _allNews
+    private val _newsViewState = MutableLiveData<NewsState>()
+    val newsViewState: LiveData<NewsState> = _newsViewState
+
 
     fun getNews() {
         viewModelScope.launch(Dispatchers.Main) {
@@ -31,23 +32,29 @@ class NewsViewModel @ViewModelInject constructor(private val newsRepositoryImp: 
 
     fun getAllNews() {
         viewModelScope.launch(Dispatchers.Main) {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 newsRepositoryImp.getNews()
             }.run {
-                when(status){
+                when (status) {
                     Resource.Status.SUCCESS -> {
-                        data?.let {
-                            _allNews.value = it
-                        }
+                        _newsViewState.value = NewsState.Loading(false)
+                        _newsViewState.value = data?.let { NewsState.Success(it) }
                     }
                     Resource.Status.ERROR -> {
-                        _allNews.value = emptyList()
+                        _newsViewState.value = NewsState.Loading(false)
+                        _newsViewState.value = NewsState.Error
                     }
-                    else -> {}
+                    Resource.Status.LOADING -> {
+                        _newsViewState.value = NewsState.Loading(true)
+                    }
                 }
             }
 
         }
     }
-
+}
+sealed class NewsState {
+    data class Success(val newsList: List<NewsResponse>) : NewsState()
+    object Error : NewsState()
+    data class Loading(val isLoading: Boolean) : NewsState()
 }
