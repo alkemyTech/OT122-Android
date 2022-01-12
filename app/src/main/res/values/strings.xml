@@ -32,6 +32,7 @@
     <string name="home_tv_title">Welcome</string>
     <string name="home_tv_title_news">News</string>
     <string name="home_tv_title_testimonial">Testimonial</string>
+    <string name="home_error">An error has occurred. Please try again later.</string>
 
     <!-- SignUp -->
     <string name="sign_up_name">Name</string>

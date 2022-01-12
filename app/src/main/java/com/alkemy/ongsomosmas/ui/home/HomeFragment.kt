@@ -51,8 +51,8 @@ class HomeFragment : Fragment() {
 
         binding.rvNews.adapter = newsAdapter
 
-        setObserver()
         welcomeViewModel.welcomeSlide()
+        setObserver()
 
         testimonialAdapter = TestimonialAdapter(
             testimonial,
@@ -70,7 +70,6 @@ class HomeFragment : Fragment() {
 
     private fun setObserver() {
         welcomeViewModel.welcomeResponse.observe(viewLifecycleOwner, Observer {
-
             binding.loading.progressBar.isVisible = it.status == Resource.Status.LOADING
 
             when (it.status) {
@@ -83,6 +82,7 @@ class HomeFragment : Fragment() {
                     binding.rvSlides.adapter = welcomeAdapter
                 }
                 Resource.Status.ERROR -> {
+                    Toast.makeText(this.context, getString(R.string.home_error), Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                 }

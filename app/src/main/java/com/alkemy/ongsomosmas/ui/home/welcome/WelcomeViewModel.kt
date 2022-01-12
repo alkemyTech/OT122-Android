@@ -12,15 +12,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class WelcomeViewModel @ViewModelInject constructor(private val welcomeRepository: WelcomeRepository) :
+class WelcomeViewModel @ViewModelInject constructor(
+    private val welcomeRepository: WelcomeUseCase
+    ):
     ViewModel() {
 
-    private val _welcomeResponse: MutableLiveData<Resource<List<WelcomeResponse>>> = MutableLiveData()
+    private val _welcomeResponse = MutableLiveData<Resource<List<WelcomeResponse>>>()
     val welcomeResponse: LiveData<Resource<List<WelcomeResponse>>> = _welcomeResponse
 
     fun welcomeSlide() = viewModelScope.launch(Dispatchers.Main) {
         val result = withContext(Dispatchers.IO) {
-            welcomeRepository.getWelcome()
+            welcomeRepository()
         }
         _welcomeResponse.value = result
     }
