@@ -15,11 +15,13 @@ import com.alkemy.ongsomosmas.data.model.NewsResponse
 import com.alkemy.ongsomosmas.data.model.TestimonialResponse
 import com.alkemy.ongsomosmas.data.model.WelcomeResponse
 import com.alkemy.ongsomosmas.databinding.FragmentHomeBinding
-import com.alkemy.ongsomosmas.ui.home.adapter.NewsAdapter
+import com.alkemy.ongsomosmas.ui.home.news.NewsAdapter
 import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialAdapter
 import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeAdapter
 import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeViewModel
 import com.alkemy.ongsomosmas.utils.afterTextChanged
+import com.alkemy.ongsomosmas.ui.home.adapter.WelcomeAdapter
+import com.alkemy.ongsomosmas.ui.home.news.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +33,8 @@ class HomeFragment : Fragment() {
     private lateinit var welcomeAdapter: WelcomeAdapter
     private lateinit var testimonialAdapter: TestimonialAdapter
 
+    private val newsViewModel: NewsViewModel by viewModels()
+
     // Datos de prueba. Eliminar cuando se implemente la integración con la api
     private var news = mutableListOf<NewsResponse>()
     private var testimonial = mutableListOf<TestimonialResponse>()
@@ -41,15 +45,34 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+
+
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        newsAdapter = NewsAdapter(
-            news,
-            onClickLastItem = {
-                //TODO
-            })
+        //Get News
+        newsViewModel.getNews()
 
-        binding.rvNews.adapter = newsAdapter
+        newsViewModel.news.observe(viewLifecycleOwner, {
+            binding.loading.progressBar.isVisible = it.status == Resource.Status.LOADING
+
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    it.data?.let { news ->
+                        newsAdapter = NewsAdapter(
+                            news,
+                            onClickLastItem = {
+                                //TODO
+                            })
+                    }
+                    binding.rvNews.adapter = newsAdapter
+                }
+                Resource.Status.ERROR -> {
+                    Toast.makeText(this.context, getString(R.string.home_error), Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else -> {}
+            }
+        })
 
         welcomeViewModel.welcomeSlide()
         setObserver()
@@ -64,6 +87,8 @@ class HomeFragment : Fragment() {
             })
 
         binding.rvTestimonial.adapter = testimonialAdapter
+
+
 
         return binding.root
     }

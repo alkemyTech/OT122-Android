@@ -1,5 +1,4 @@
 package com.alkemy.ongsomosmas.di
-
 import android.content.Context
 import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.PreferencesImpl
@@ -9,6 +8,8 @@ import com.alkemy.ongsomosmas.data.home.welcome.WelcomeDataSource
 import com.alkemy.ongsomosmas.data.home.welcome.WelcomeRepository
 import com.alkemy.ongsomosmas.data.home.welcome.WelcomeRepositoryImp
 import com.alkemy.ongsomosmas.data.home.welcome.WelcomeService
+import com.alkemy.ongsomosmas.data.home.news.NewsDataSource
+import com.alkemy.ongsomosmas.data.home.news.NewsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
 import com.alkemy.ongsomosmas.data.signup.SignUpRepository
@@ -77,6 +78,7 @@ class DataModule {
     }
 
     @Provides
+
     fun providesWelcomeService(@ApiAlkemy retrofit: Retrofit): WelcomeService {
         return retrofit.create(WelcomeService::class.java)
     }
@@ -85,6 +87,14 @@ class DataModule {
     fun providesWelcomeRepository(welcomeDataSource: WelcomeDataSource): WelcomeRepository {
         return WelcomeRepositoryImp(welcomeDataSource)
     }
+
+    fun provideNewsService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(NewsService::class.java)
+
+    @Provides
+    fun provideNewsDataSource(newsService: NewsService): NewsDataSource =
+        NewsDataSource(newsService)
+
 
     @Provides
     fun providesRegisterUserUseCase(repository: SignUpRepository): RegisterUserUseCase {
