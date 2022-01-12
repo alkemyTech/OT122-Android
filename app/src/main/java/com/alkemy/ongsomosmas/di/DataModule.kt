@@ -2,11 +2,21 @@ package com.alkemy.ongsomosmas.di
 
 import android.content.Context
 import com.alkemy.ongsomosmas.data.Preferences
+import com.alkemy.ongsomosmas.data.PreferencesImpl
+import com.alkemy.ongsomosmas.data.activities.ActivitiesRepository
+import com.alkemy.ongsomosmas.data.activities.ActivitiesService
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
+import com.alkemy.ongsomosmas.data.home.news.NewsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
+import com.alkemy.ongsomosmas.data.signup.SignUpRepository
 import com.alkemy.ongsomosmas.data.signup.SignUpService
+import com.alkemy.ongsomosmas.data.testimonials.TestimonialService
+import com.alkemy.ongsomosmas.ui.activities.GetActivitiesUseCase
+import com.alkemy.ongsomosmas.ui.activities.GetActivitiesUseCaseImp
+import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCase
+import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCaseImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,7 +47,7 @@ class DataModule {
 
     @Provides
     fun providePreferences(@ApplicationContext context: Context): Preferences {
-        return Preferences(context)
+        return PreferencesImpl(context)
     }
 
     @Provides
@@ -62,6 +72,29 @@ class DataModule {
     fun provideLoginDataSource(loginService: LoginService): LoginDataSource {
         return LoginDataSource(loginService)
     }
+
+    @Provides
+    fun provideNewsService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(NewsService::class.java)
+
+    @Provides
+    fun provideGetActivitiesUseCase(repository: ActivitiesRepository): GetActivitiesUseCase{
+        return GetActivitiesUseCaseImp(repository)
+    }
+
+    @Provides
+    fun provideActivitiesService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(ActivitiesService::class.java)
+
+
+    @Provides
+    fun providesRegisterUserUseCase(repository: SignUpRepository): RegisterUserUseCase {
+        return RegisterUserUseCaseImp(repository)
+    }
+
+    @Provides
+    fun provideTestimonialService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(TestimonialService::class.java)
 
     companion object {
         private const val API_URL = "http://ongapi.alkemy.org/"

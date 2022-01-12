@@ -78,5 +78,7 @@
     <string name="close_drawer">Close</string>
     <string name="activities_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
 
-
+    <!-- Activities fragment -->
+    <string name="fragment_activities_title">Actividades</string>
+    <string name="activites_published">Publicado:</string>
 </resources>
