@@ -18,15 +18,37 @@ class AboutUsViewModel @ViewModelInject constructor(
 
 ) :
     ViewModel() {
-    private val _members = MutableLiveData<Resource<List<MembersResponse>>>()
-    val members: LiveData<Resource<List<MembersResponse>>> = _members
+    private val _membersViewState = MutableLiveData<AboutUsState>()
+    val membersViewState: LiveData<AboutUsState> = _membersViewState
 
     fun getMembers() {
         viewModelScope.launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) {
                 getMembersUC()
             }
-            _members.value = result
+            when (result.status) {
+                Resource.Status.SUCCESS -> {
+                    _membersViewState.value = AboutUsState.ShowLoading(false)
+                    _membersViewState.value = result.data?.let { AboutUsState.ShowMembersList(it) }
+                }
+                Resource.Status.ERROR -> {
+                    _membersViewState.value = AboutUsState.ShowLoading(false)
+                    _membersViewState.value = AboutUsState.ShowError
+                }
+                Resource.Status.LOADING -> {
+                    _membersViewState.value = AboutUsState.ShowLoading(true)
+                }
+            }
+
         }
+
     }
+
+
+}
+
+sealed class AboutUsState {
+    data class ShowMembersList(val listMembers: List<MembersResponse>) : AboutUsState()
+    object ShowError : AboutUsState()
+    data class ShowLoading(val isLoading: Boolean) : AboutUsState()
 }
