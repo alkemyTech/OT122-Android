@@ -38,7 +38,7 @@
     <string name="home_tv_title">Welcome</string>
     <string name="home_tv_title_news">News</string>
     <string name="home_tv_title_testimonial">Testimonial</string>
-    <string name="home_error">Oops! An error occurred</string>
+    <string name="home_error">An error has occurred. Please try again later.</string>
 
     <!-- SignUp -->
     <string name="sign_up_name">Name</string>
@@ -55,7 +55,7 @@
     <string name="password_text">The password must have at least 8 characters, 1 uppercase and 1 number</string>
     <string name="same_password_text">Passwords are not the same</string>
     <string name="name_text">Name must have at least 3 characters and without space</string>
-    <string name="User_was_succesfully_register">User was succesfully register</string>
+    <string name="User_was_succesfully_register">User was successfully register</string>
     <string name="User_was_not_succesfully_register">User could not be register</string>
     <string name="Ok_option">OK</string>
 
@@ -68,6 +68,7 @@
     <!-- About Us -->
     <string name="about_us_title">About Us</string>
     <string name="about_us_description">About Us description</string>
+    <string name="about_us_error">An error occurred retrieving members.</string>
 
     <!-- About us details -->
     <string name="about_us_details_title">Details</string>
@@ -83,5 +84,6 @@
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
 
+    <string name="activities_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
 
 </resources>
