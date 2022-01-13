@@ -1,10 +1,11 @@
-package com.alkemy.ongsomosmas.ui.home.adapter
+package com.alkemy.ongsomosmas.ui.home.welcome
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.model.WelcomeResponse
+import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeViewHolder
 
 class WelcomeAdapter(private var welcomeList: List<WelcomeResponse>) :
     RecyclerView.Adapter<WelcomeViewHolder>() {

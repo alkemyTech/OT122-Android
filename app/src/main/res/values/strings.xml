@@ -38,7 +38,7 @@
     <string name="home_tv_title">Welcome</string>
     <string name="home_tv_title_news">News</string>
     <string name="home_tv_title_testimonial">Testimonial</string>
-    <string name="home_error">Oops! An error occurred</string>
+    <string name="home_error">An error has occurred. Please try again later.</string>
 
     <!-- SignUp -->
     <string name="sign_up_name">Name</string>
@@ -80,7 +80,7 @@
 
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
-  
+
     <string name="activities_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
 
 </resources>

@@ -37,6 +37,7 @@
     <string name="home_tv_title">Bienvenid@</string>
     <string name="home_tv_title_news">Últimas novedades</string>
     <string name="home_tv_title_testimonial">Testimonios</string>
+    <string name="home_error">Ha ocurrido un error. Intente nuevamente más tarde.</string>
 
     <!-- SignUp -->
     <string name="sign_up_name">Nombre</string>
@@ -66,7 +67,6 @@
     <string name="about_us_description">Descripcion nosotros</string>
     <string name="about_us_error">Ocurrio un error al obtener los miembros.</string>>
 
-    <string name="home_error">Oops! Ha ocurrido un error</string>
 
     <!-- About us details -->
     <string name="about_us_details_title">Detalle</string>
