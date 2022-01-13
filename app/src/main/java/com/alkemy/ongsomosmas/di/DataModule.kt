@@ -1,30 +1,30 @@
 package com.alkemy.ongsomosmas.di
+
 import android.content.Context
 import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.PreferencesImpl
 import com.alkemy.ongsomosmas.data.aboutus.AboutUsDataSource
 import com.alkemy.ongsomosmas.data.aboutus.AboutUsRepository
 import com.alkemy.ongsomosmas.data.aboutus.AboutUsService
-
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
+import com.alkemy.ongsomosmas.data.home.news.NewsDataSource
+import com.alkemy.ongsomosmas.data.home.news.NewsService
 import com.alkemy.ongsomosmas.data.home.welcome.WelcomeDataSource
 import com.alkemy.ongsomosmas.data.home.welcome.WelcomeRepository
 import com.alkemy.ongsomosmas.data.home.welcome.WelcomeRepositoryImp
 import com.alkemy.ongsomosmas.data.home.welcome.WelcomeService
-import com.alkemy.ongsomosmas.data.home.news.NewsDataSource
-import com.alkemy.ongsomosmas.data.home.news.NewsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
+import com.alkemy.ongsomosmas.data.signup.SignUpRepository
 import com.alkemy.ongsomosmas.data.signup.SignUpService
-import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeUseCase
-import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeUseCaseImp
-
+import com.alkemy.ongsomosmas.data.testimonials.TestimonialService
 import com.alkemy.ongsomosmas.ui.aboutus.GetMembersUseCase
 import com.alkemy.ongsomosmas.ui.aboutus.GetMembersUseCaseImp
+import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeUseCase
+import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeUseCaseImp
 import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCase
 import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCaseImp
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,7 +55,7 @@ class DataModule {
 
     @Provides
     fun providePreferences(@ApplicationContext context: Context): Preferences {
-        return Preferences(context)
+        return PreferencesImpl(context)
     }
 
     @Provides
@@ -95,8 +95,14 @@ class DataModule {
         return WelcomeRepositoryImp(welcomeDataSource)
     }
 
+    @Provides
     fun provideNewsService(@ApiAlkemy retrofit: Retrofit) =
         retrofit.create(NewsService::class.java)
+
+    @Provides
+    fun providesTestimonialService(@ApiAlkemy retrofit: Retrofit): TestimonialService {
+        return retrofit.create(TestimonialService::class.java)
+    }
 
     @Provides
     fun provideNewsDataSource(newsService: NewsService): NewsDataSource =
