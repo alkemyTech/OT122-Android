@@ -14,15 +14,47 @@ import kotlinx.coroutines.withContext
 
 class NewsViewModel @ViewModelInject constructor(private val newsRepositoryImp: NewsRepositoryImp) :
     ViewModel() {
-        private val _news = MutableLiveData<Resource<List<NewsResponse>>>()
-        val news: LiveData<Resource<List<NewsResponse>>> = _news
+    private val _news = MutableLiveData<Resource<List<NewsResponse>>>()
+    val news: LiveData<Resource<List<NewsResponse>>> = _news
 
-        fun getNews() {
-            viewModelScope.launch(Dispatchers.Main) {
-                val result = withContext(Dispatchers.IO) {
-                    newsRepositoryImp.getNews()
-                }
-                _news.value = result
+    private val _newsViewState = MutableLiveData<NewsState>()
+    val newsViewState: LiveData<NewsState> = _newsViewState
+
+
+    fun getNews() {
+        viewModelScope.launch(Dispatchers.Main) {
+            val result = withContext(Dispatchers.IO) {
+                newsRepositoryImp.getNews()
             }
+            _news.value = result
         }
+    }
+
+    fun getAllNews() {
+        viewModelScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                newsRepositoryImp.getNews()
+            }.run {
+                when (status) {
+                    Resource.Status.SUCCESS -> {
+                        _newsViewState.value = NewsState.Loading(false)
+                        _newsViewState.value = data?.let { NewsState.Success(it) }
+                    }
+                    Resource.Status.ERROR -> {
+                        _newsViewState.value = NewsState.Loading(false)
+                        _newsViewState.value = NewsState.Error
+                    }
+                    Resource.Status.LOADING -> {
+                        _newsViewState.value = NewsState.Loading(true)
+                    }
+                }
+            }
+
+        }
+    }
+}
+sealed class NewsState {
+    data class Success(val newsList: List<NewsResponse>) : NewsState()
+    object Error : NewsState()
+    data class Loading(val isLoading: Boolean) : NewsState()
 }

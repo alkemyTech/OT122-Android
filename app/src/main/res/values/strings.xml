@@ -77,6 +77,9 @@
     <string name="about_us_details_admission_date">Admission date:</string>
     <string name="about_us_details_social_networks">Networks:</string>
 
+    <!-- News -->
+    <string name="news_error_fragment">An error has occurred obtaining the information</string>
+
 
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
