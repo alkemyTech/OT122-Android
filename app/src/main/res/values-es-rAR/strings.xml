@@ -64,7 +64,8 @@
     <!-- About Us -->
     <string name="about_us_title">Nosotros</string>
     <string name="about_us_description">Descripcion nosotros</string>
-  
+    <string name="about_us_error">Ocurrio un error al obtener los miembros.</string>>
+
     <string name="home_error">Oops! Ha ocurrido un error</string>
 
     <!-- About us details -->
