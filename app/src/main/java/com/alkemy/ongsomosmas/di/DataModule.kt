@@ -2,6 +2,10 @@ package com.alkemy.ongsomosmas.di
 import android.content.Context
 import com.alkemy.ongsomosmas.data.Preferences
 import com.alkemy.ongsomosmas.data.PreferencesImpl
+import com.alkemy.ongsomosmas.data.aboutus.AboutUsDataSource
+import com.alkemy.ongsomosmas.data.aboutus.AboutUsRepository
+import com.alkemy.ongsomosmas.data.aboutus.AboutUsService
+
 import com.alkemy.ongsomosmas.data.contactus.ContactUsDataSource
 import com.alkemy.ongsomosmas.data.contactus.ContactUsService
 import com.alkemy.ongsomosmas.data.home.welcome.WelcomeDataSource
@@ -12,12 +16,15 @@ import com.alkemy.ongsomosmas.data.home.news.NewsDataSource
 import com.alkemy.ongsomosmas.data.home.news.NewsService
 import com.alkemy.ongsomosmas.data.login.LoginDataSource
 import com.alkemy.ongsomosmas.data.login.LoginService
-import com.alkemy.ongsomosmas.data.signup.SignUpRepository
 import com.alkemy.ongsomosmas.data.signup.SignUpService
 import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeUseCase
 import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeUseCaseImp
+
+import com.alkemy.ongsomosmas.ui.aboutus.GetMembersUseCase
+import com.alkemy.ongsomosmas.ui.aboutus.GetMembersUseCaseImp
 import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCase
 import com.alkemy.ongsomosmas.ui.signup.RegisterUserUseCaseImp
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,7 +55,7 @@ class DataModule {
 
     @Provides
     fun providePreferences(@ApplicationContext context: Context): Preferences {
-        return PreferencesImpl(context)
+        return Preferences(context)
     }
 
     @Provides
@@ -100,6 +107,20 @@ class DataModule {
     fun providesRegisterUserUseCase(repository: SignUpRepository): RegisterUserUseCase {
         return RegisterUserUseCaseImp(repository)
     }
+
+    @Provides
+    fun providerGetMembersUseCase(repository: AboutUsRepository): GetMembersUseCase {
+        return GetMembersUseCaseImp(repository)
+    }
+
+    @Provides
+    fun provideAboutUsService(@ApiAlkemy retrofit: Retrofit) =
+        retrofit.create(AboutUsService::class.java)
+
+    @Provides
+    fun provideAboutUsDataSource(aboutUsService: AboutUsService): AboutUsDataSource =
+        AboutUsDataSource(aboutUsService)
+
 
     @Provides
     fun providesWelcomeUseCase(repository: WelcomeRepository): WelcomeUseCase {
