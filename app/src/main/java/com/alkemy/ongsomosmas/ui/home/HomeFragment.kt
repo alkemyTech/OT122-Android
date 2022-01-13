@@ -2,26 +2,20 @@ package com.alkemy.ongsomosmas.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.model.NewsResponse
 import com.alkemy.ongsomosmas.data.model.TestimonialResponse
 import com.alkemy.ongsomosmas.data.model.WelcomeResponse
 import com.alkemy.ongsomosmas.databinding.FragmentHomeBinding
+import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialAdapter
 import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialState
 import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialViewModel
 import com.alkemy.ongsomosmas.ui.home.adapter.WelcomeAdapter
 import com.alkemy.ongsomosmas.ui.home.news.NewsAdapter
-import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialAdapter
-import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,15 +38,16 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setUpObservers()
         testimonialViewModel.getTestimonials()
 
-        newsAdapter = NewsAdapter(news, onClickLastItem = {
-            //TODO
-        })
+        newsAdapter = NewsAdapter(
+            news,
+            onClickLastItem = {
+                //TODO
+            })
         binding.rvNews.adapter = newsAdapter
 
 
@@ -89,7 +84,5 @@ class HomeFragment : Fragment() {
             onClick = {}, onClickLastItem = {})
         binding.rvTestimonial.adapter = testimonialAdapter
     }
-
-
 }
 
