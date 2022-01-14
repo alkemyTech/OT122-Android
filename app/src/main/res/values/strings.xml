@@ -81,6 +81,10 @@
     <string name="news_error_fragment">An error has occurred obtaining the information</string>
     <string name="news_published">Published: </string>
 
+    <!-- Testimonial -->
+    <string name="testimonial_error_fragment">An error has occurred obtaining the information</string>
+
+
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
 
