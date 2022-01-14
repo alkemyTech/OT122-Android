@@ -10,10 +10,11 @@ import androidx.fragment.app.viewModels
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.model.NewsResponse
 import com.alkemy.ongsomosmas.databinding.FragmentNewsBinding
+import com.alkemy.ongsomosmas.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewsFragment : Fragment() {
+class NewsFragment : BaseFragment(R.layout.fragment_news)  {
     private lateinit var binding: FragmentNewsBinding
 
     private val newsViewModel: NewsViewModel by viewModels()
@@ -32,6 +33,7 @@ class NewsFragment : Fragment() {
     }
 
     private fun setUpObservers() {
+        showProgressDialog()
         newsViewModel.newsViewState.observe(viewLifecycleOwner) {
             when (it) {
                 is NewsState.Success -> setDataAndShowRecycler(it.newsList)
@@ -46,6 +48,7 @@ class NewsFragment : Fragment() {
     }
 
     private fun setListenerAndShowNewsError() {
+        hideProgressDialog()
         with(binding) {
             rvNewsFragment.isVisible = false
             newsFragmentError.root.isVisible = true
@@ -53,12 +56,19 @@ class NewsFragment : Fragment() {
             newsFragmentError.btnRetry.setOnClickListener {
                 newsViewModel.getAllNews()
                 newsFragmentError.root.isVisible = false
+                showProgressDialog()
             }
         }
     }
 
     private fun setDataAndShowRecycler(newsList: List<NewsResponse>) {
-        //TODO
+        hideProgressDialog()
+        NewsFragmentAdapter(newsList, requireContext()).let {
+            with(binding.rvNewsFragment) {
+                adapter = it
+                isVisible = true
+            }
+        }
     }
 
 }

@@ -27,4 +27,10 @@
         android:label="@string/fragment_activities_title"
         tools:layout="@layout/fragment_activities"
         />
+    <fragment
+        android:id="@+id/nav_news"
+        android:name="com.alkemy.ongsomosmas.ui.home.news.NewsFragment"
+        android:label="@string/home_tv_title_news"
+        tools:layout="@layout/fragment_news"
+        />
 </navigation>
