@@ -93,6 +93,14 @@ class HomeFragment : Fragment() {
             }
 
         }
+
+        newsViewModel.newsViewState.observe(viewLifecycleOwner) {
+            when (it) {
+                is NewsState.Success -> setDataAndShowNewsRecycler(it.newsList)
+                is NewsState.Error -> setListenerAndShowNewsError()
+                is NewsState.Loading -> showLoading(it.isLoading)
+            }
+        }
     }
 
     private fun setListAndShowError() {
@@ -105,13 +113,7 @@ class HomeFragment : Fragment() {
                 errorTestimonials.root.isVisible = false
 
             }
-            newsViewModel.newsViewState.observe(viewLifecycleOwner) {
-                when (it) {
-                    is NewsState.Success -> setDataAndShowNewsRecycler(it.newsList)
-                    is NewsState.Error -> setListenerAndShowNewsError()
-                    is NewsState.Loading -> showLoading(it.isLoading)
-                }
-            }
+
         }
     }
 
