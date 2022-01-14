@@ -18,6 +18,8 @@ import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialAdapter
 import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialState
 import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialViewModel
 import com.alkemy.ongsomosmas.ui.home.news.NewsAdapter
+import com.alkemy.ongsomosmas.ui.home.news.NewsState
+import com.alkemy.ongsomosmas.ui.home.news.NewsViewModel
 import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeAdapter
 import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,9 +34,9 @@ class HomeFragment : Fragment() {
     private lateinit var testimonialAdapter: TestimonialAdapter
 
     private val testimonialViewModel: TestimonialViewModel by viewModels()
+    private val newsViewModel: NewsViewModel by viewModels()
 
     // Datos de prueba. Eliminar cuando se implemente la integración con la api
-    private var news = mutableListOf<NewsResponse>()
     private val welcomeViewModel: WelcomeViewModel by viewModels()
 
     override fun onCreateView(
@@ -46,23 +48,15 @@ class HomeFragment : Fragment() {
 
         setUpObservers()
         testimonialViewModel.getTestimonials()
-
-        newsAdapter = NewsAdapter(
-            news,
-            onClickLastItem = {
-                //TODO
-            })
-        binding.rvNews.adapter = newsAdapter
-
-
+        newsViewModel.getAllNews()
         welcomeViewModel.welcomeSlide()
 
         return binding.root
     }
 
-    private fun setUpObservers(){
-        testimonialViewModel.testimonialsViewState.observe(viewLifecycleOwner){
-            when(it){
+    private fun setUpObservers() {
+        testimonialViewModel.testimonialsViewState.observe(viewLifecycleOwner) { it ->
+            when (it) {
                 is TestimonialState.Success -> {
                     setDataAndShowRecycler(it.listTestimonial)
                 }
@@ -97,6 +91,26 @@ class HomeFragment : Fragment() {
                 }
 
             })
+            newsViewModel.newsViewState.observe(viewLifecycleOwner) {
+                when (it) {
+                    is NewsState.Success -> setDataAndShowNewsRecycler(it.newsList)
+                    is NewsState.Error -> setListenerAndShowNewsError()
+                    is NewsState.Loading -> showLoading(it.isLoading)
+                }
+            }
+        }
+    }
+
+    private fun setDataAndShowNewsRecycler(newsList: List<NewsResponse>) {
+        binding.newsError.root.isVisible = false
+        NewsAdapter(newsList,
+            onClickLastItem = {
+                // TODO
+            }).let {
+            with(binding.rvNews) {
+                adapter = it
+                isVisible = true
+            }
         }
     }
 
@@ -108,6 +122,17 @@ class HomeFragment : Fragment() {
         testimonialAdapter = TestimonialAdapter(listTestimonial,
             onClick = {}, onClickLastItem = {})
         binding.rvTestimonial.adapter = testimonialAdapter
+    }
+
+    private fun setListenerAndShowNewsError() {
+        with(binding) {
+            rvNews.isVisible = false
+            newsError.root.isVisible = true
+            newsError.btnRetry.setOnClickListener {
+                newsViewModel.getAllNews()
+                newsError.root.isVisible = false
+            }
+        }
     }
 
 }

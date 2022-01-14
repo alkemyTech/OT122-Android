@@ -83,4 +83,5 @@
     <!-- Activities fragment -->
     <string name="fragment_activities_title">Actividades</string>
     <string name="activites_published">Publicado:</string>
+    <string name="news_published">Publicado: </string>
 </resources>
