@@ -40,7 +40,7 @@ class ActivitiesAdapter(val activitesList: List<ActivitiesResponse>, val context
 
         fun render(activites: ActivitiesResponse, context: Context) {
             binding.tvTitleActivity.text = activites.name
-            Picasso.get().load(activites.image).into(binding.imgActivity)
+            Picasso.get().load(activites.image).fit().centerCrop().into(binding.imgActivity)
             binding.tvDescriptionActivity.text = activites.description
             binding.tvDateActivity.text = "${context.getString(R.string.activites_published)} ${activites.createdAt.take(10)}"
         }
