@@ -93,6 +93,7 @@ class HomeFragment : Fragment() {
             }
 
         }
+
         newsViewModel.newsViewState.observe(viewLifecycleOwner) {
             when (it) {
                 is NewsState.Success -> setDataAndShowNewsRecycler(it.newsList)
