@@ -67,41 +67,54 @@ class HomeFragment : Fragment() {
                     setDataAndShowRecycler(it.listTestimonial)
                 }
                 is TestimonialState.Error -> {
-                    binding.rvTestimonial.isVisible = false
+                    setListAndShowError()
                 }
                 is TestimonialState.Loading -> {
                     showLoading(it.isLoading)
                 }
             }
-            welcomeViewModel.welcomeResponse.observe(viewLifecycleOwner, Observer {
-                binding.loading.progressBar.isVisible = it.status == Resource.Status.LOADING
+        }
 
-                when (it.status) {
-                    Resource.Status.SUCCESS -> {
-                        it.data?.let { item ->
-                            welcomeAdapter = WelcomeAdapter(
+        welcomeViewModel.welcomeResponse.observe(viewLifecycleOwner) {
+            binding.loading.progressBar.isVisible = it.status == Resource.Status.LOADING
+
+            when (it.status) {
+                Resource.Status.SUCCESS -> {
+                    it.data?.let { item ->
+                        welcomeAdapter = WelcomeAdapter(
                                 item
-                            )
-                        }
-                        binding.rvSlides.adapter = welcomeAdapter
+                        )
                     }
-                    Resource.Status.ERROR -> {
-                        Toast.makeText(
+                    binding.rvSlides.adapter = welcomeAdapter
+                }
+                Resource.Status.ERROR -> {
+                    Toast.makeText(
                             this.context,
                             getString(R.string.home_error),
                             Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    else -> {
-                    }
+                    ).show()
                 }
+                else -> {
+                }
+            }
 
-            })
+        }
+    }
+
+    private fun setListAndShowError() {
+        with(binding) {
+            rvTestimonial.isVisible = false
+            errorTestimonials.root.isVisible = true
+            errorTestimonials.tvError.text = getString(R.string.testimonial_error_fragment)
+            errorTestimonials.btnRetry.setOnClickListener {
+                testimonialViewModel.getTestimonials()
+                errorTestimonials.root.isVisible = false
+            }
         }
     }
 
     private fun showLoading(loading: Boolean) {
-        //TODO implements loading
+        binding.loading.progressBar.isVisible = loading
     }
 
     private fun setDataAndShowRecycler(listTestimonial: List<TestimonialResponse>) {
