@@ -9,7 +9,7 @@
             android:title="@string/menu_item_home" />
 
         <item
-            android:id="@+id/nav_about_us"
+            android:id="@+id/aboutUsFragment"
             android:title="@string/menu_item_about_us" />
 
         <item

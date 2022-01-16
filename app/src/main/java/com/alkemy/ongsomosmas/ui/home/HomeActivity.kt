@@ -42,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
 
         //setSupportActionBar(binding.appBar.toolbar)
 
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home_fragment, R.id.activitiesFragment), binding.drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home_fragment, R.id.activitiesFragment, R.id.aboutUsFragment, R.id.nav_news), binding.drawerLayout)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.findNavController()
@@ -65,6 +65,5 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
-
 
 }
