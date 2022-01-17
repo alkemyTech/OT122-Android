@@ -42,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
 
         //setSupportActionBar(binding.appBar.toolbar)
 
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home_fragment, R.id.activitiesFragment, R.id.aboutUsFragment, R.id.nav_news), binding.drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home_fragment, R.id.activitiesFragment, R.id.aboutUsFragment, R.id.nav_news, R.id.nav_contact_us), binding.drawerLayout)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.findNavController()
