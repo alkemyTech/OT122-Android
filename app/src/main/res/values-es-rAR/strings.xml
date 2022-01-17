@@ -64,7 +64,8 @@
 
     <!-- About Us -->
     <string name="about_us_title">Nosotros</string>
-    <string name="about_us_description">Descripcion nosotros</string>
+    <string name="about_us_members">Miembros</string>
+    <string name="about_us_description">Somos una asociación civil sin fines de lucro que se creó en 1997 con la intención de dar alimento a las familias del barrio La Cava. Hoy es un centro comunitario que acompaña a más de 700 personas a través de las áreas de: Educación, deportes, primera infancia, salud, alimentación y trabajo social.</string>
     <string name="about_us_error">Ocurrio un error al obtener los miembros.</string>>
 
 
