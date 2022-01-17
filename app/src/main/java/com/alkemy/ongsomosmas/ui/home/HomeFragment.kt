@@ -14,6 +14,7 @@ import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.data.model.NewsResponse
 import com.alkemy.ongsomosmas.data.model.TestimonialResponse
 import com.alkemy.ongsomosmas.databinding.FragmentHomeBinding
+import com.alkemy.ongsomosmas.ui.BaseFragment
 import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialAdapter
 import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialState
 import com.alkemy.ongsomosmas.ui.home.adapter.TestimonialViewModel
@@ -25,10 +26,9 @@ import com.alkemy.ongsomosmas.ui.home.welcome.WelcomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private lateinit var binding: FragmentHomeBinding
-
     private lateinit var newsAdapter: NewsAdapter
     private lateinit var welcomeAdapter: WelcomeAdapter
     private lateinit var testimonialAdapter: TestimonialAdapter
@@ -50,7 +50,8 @@ class HomeFragment : Fragment() {
         testimonialViewModel.getTestimonials()
         newsViewModel.getAllNews()
         welcomeViewModel.welcomeSlide()
-
+        showProgressDialog()
+        binding.homeScrollView.visibility = View.GONE
         return binding.root
     }
 
@@ -59,6 +60,9 @@ class HomeFragment : Fragment() {
             when (it) {
                 is TestimonialState.Success -> {
                     setDataAndShowRecycler(it.listTestimonial)
+                    hideProgressDialog()
+                    binding.homeScrollView.visibility = View.VISIBLE
+
                 }
                 is TestimonialState.Error -> {
                     setListAndShowError()
