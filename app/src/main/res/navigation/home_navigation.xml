@@ -20,7 +20,11 @@
         android:id="@+id/aboutUsFragment"
         android:name="com.alkemy.ongsomosmas.ui.aboutus.AboutUsFragment"
         android:label="@string/about_us_title"
-        tools:layout="@layout/fragment_about_us" />
+        tools:layout="@layout/fragment_about_us" >
+        <action
+            android:id="@+id/action_aboutUsFragment_to_aboutUsDetailsFragment"
+            app:destination="@id/aboutUsDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/activitiesFragment"
         android:name="com.alkemy.ongsomosmas.ui.activities.ActivitiesFragment"
@@ -33,4 +37,34 @@
         android:label="@string/home_tv_title_news"
         tools:layout="@layout/fragment_news"
         />
+    <fragment
+        android:id="@+id/aboutUsDetailsFragment"
+        android:name="com.alkemy.ongsomosmas.ui.aboutus.AboutUsDetailsFragment"
+        android:label="@string/about_us_details_title"
+        tools:layout="@layout/fragment_about_us_details" >
+        <argument
+            android:name="imgUrl"
+            app:argType="string"
+            android:defaultValue="NO_IMAGE" />
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="NO_NAME" />
+        <argument
+            android:name="job"
+            app:argType="string"
+            android:defaultValue="NO_JOB" />
+        <argument
+            android:name="admissionDate"
+            app:argType="string"
+            android:defaultValue="NO_DATE" />
+        <argument
+            android:name="facebookUrl"
+            app:argType="string"
+            android:defaultValue="NO_URL" />
+        <argument
+            android:name="linkedinUrl"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>
