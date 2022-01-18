@@ -83,10 +83,8 @@ class LoginActivity : AppCompatActivity() {
                             it?.data.toString() + " Status: ${it.codeStatus}"
                         ) { }
                     } else {
-                        showAlertDialog(
-                            getString(R.string.log_in_toast_success),
-                            it.data.toString() + " Status: ${it.codeStatus}"
-                        ) { goToHome() }
+                        //showAlertDialog(getString(R.string.log_in_toast_success), it.data.toString() + " Status: ${it.codeStatus}") { goToHome() }
+                        goToHome()
                     }
                 }
                 Resource.Status.ERROR -> {
