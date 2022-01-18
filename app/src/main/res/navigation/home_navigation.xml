@@ -23,7 +23,11 @@
         tools:layout="@layout/fragment_about_us" >
         <action
             android:id="@+id/action_aboutUsFragment_to_aboutUsDetailsFragment"
-            app:destination="@id/aboutUsDetailsFragment" />
+            app:destination="@id/aboutUsDetailsFragment"
+            app:enterAnim="@anim/from_rigth"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/activitiesFragment"
