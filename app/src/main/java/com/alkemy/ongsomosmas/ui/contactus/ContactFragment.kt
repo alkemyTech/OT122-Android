@@ -13,11 +13,12 @@ import androidx.lifecycle.Observer
 import com.alkemy.ongsomosmas.R
 import com.alkemy.ongsomosmas.data.Resource
 import com.alkemy.ongsomosmas.databinding.FragmentContactUsBinding
+import com.alkemy.ongsomosmas.ui.BaseFragment
 import com.alkemy.ongsomosmas.utils.afterTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ContactFragment : Fragment() {
+class ContactFragment : BaseFragment(R.layout.fragment_contact_us) {
 
     private lateinit var binding: FragmentContactUsBinding
     private val contactViewModel: ContactViewModel by viewModels()
@@ -31,6 +32,7 @@ class ContactFragment : Fragment() {
         validation()
 
         binding.button.setOnClickListener {
+            showProgressDialog()
             contactViewModel.contact(
                 0,
                 binding.etName.text.toString() + " " + binding.etSurname.text.toString(),
@@ -56,6 +58,7 @@ class ContactFragment : Fragment() {
 
             when (it.status) {
                 Resource.Status.SUCCESS -> {
+                    hideProgressDialog()
                     Toast.makeText(
                         context,
                         getString(R.string.contact_us_toast_success),
